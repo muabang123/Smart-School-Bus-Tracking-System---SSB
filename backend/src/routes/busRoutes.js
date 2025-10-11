@@ -1,11 +1,19 @@
 import express from "express";
-import { getAllBuses, createBus, updateBus, deleteBus } from "../controllers/busController.js";
+import { 
+  getAllBuses, 
+  getBusById, 
+  createBus, 
+  updateBus, 
+  deleteBus
+} from "../controllers/busController.js";
 
 const router = express.Router();
 
-router.get("/", getAllBuses);
-router.post("/", createBus);
-router.put("/:id", updateBus);
-router.delete("/:id", deleteBus);
+// Routes cho buses
+router.get("/", getAllBuses);                       // GET /api/buses
+router.get("/:id", getBusById);                     // GET /api/buses/:id
+router.post("/", createBus);                        // POST /api/buses
+router.put("/:id", updateBus);                      // PUT /api/buses/:id
+router.delete("/:id", deleteBus);                   // DELETE /api/buses/:id
 
 export default router;

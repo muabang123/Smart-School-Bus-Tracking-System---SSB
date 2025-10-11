@@ -1,0 +1,550 @@
+{
+	"info": {
+		"_postman_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+		"name": "Smart School Bus Tracking System API",
+		"description": "API collection cho hệ thống quản lý xe buýt trường học thông minh",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Buses",
+			"item": [
+				{
+					"name": "Get All Buses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/buses",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"buses"
+							]
+						},
+						"description": "Lấy danh sách tất cả xe buýt"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Bus by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/buses/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"buses",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "BUS_ID_HERE",
+									"description": "ID của xe buýt"
+								}
+							]
+						},
+						"description": "Lấy thông tin xe buýt theo ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Bus",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"busNumber\": \"BUS001\",\n  \"driverName\": \"Nguyễn Văn A\",\n  \"route\": \"Tuyến 1\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/buses",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"buses"
+							]
+						},
+						"description": "Tạo xe buýt mới"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Bus",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"busNumber\": \"BUS001\",\n  \"driverName\": \"Nguyễn Văn B\",\n  \"route\": \"Tuyến 1\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/buses/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"buses",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "BUS_ID_HERE",
+									"description": "ID của xe buýt"
+								}
+							]
+						},
+						"description": "Cập nhật thông tin xe buýt"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Bus",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/buses/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"buses",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "BUS_ID_HERE",
+									"description": "ID của xe buýt"
+								}
+							]
+						},
+						"description": "Xóa xe buýt"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Students by Bus",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/buses/:id/students",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"buses",
+								":id",
+								"students"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "BUS_ID_HERE",
+									"description": "ID của xe buýt"
+								}
+							]
+						},
+						"description": "Lấy danh sách học sinh theo xe buýt"
+					},
+					"response": []
+				}
+			],
+			"description": "API endpoints cho quản lý xe buýt"
+		},
+		{
+			"name": "Students",
+			"item": [
+				{
+					"name": "Get All Students",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/students",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"students"
+							]
+						},
+						"description": "Lấy danh sách tất cả học sinh"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Student by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/students/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"students",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "STUDENT_ID_HERE",
+									"description": "ID của học sinh"
+								}
+							]
+						},
+						"description": "Lấy thông tin học sinh theo ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Student",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Nguyễn Văn An\",\n  \"grade\": \"10A1\",\n  \"busId\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/students",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"students"
+							]
+						},
+						"description": "Tạo học sinh mới"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Student",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Nguyễn Văn An\",\n  \"grade\": \"10A2\",\n  \"busId\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/students/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"students",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "STUDENT_ID_HERE",
+									"description": "ID của học sinh"
+								}
+							]
+						},
+						"description": "Cập nhật thông tin học sinh"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Student",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/students/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"students",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "STUDENT_ID_HERE",
+									"description": "ID của học sinh"
+								}
+							]
+						},
+						"description": "Xóa học sinh"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Students by Bus",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/students/bus/:busId",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"students",
+								"bus",
+								":busId"
+							],
+							"variable": [
+								{
+									"key": "busId",
+									"value": "BUS_ID_HERE",
+									"description": "ID của xe buýt"
+								}
+							]
+						},
+						"description": "Lấy danh sách học sinh theo xe buýt"
+					},
+					"response": []
+				}
+			],
+			"description": "API endpoints cho quản lý học sinh"
+		},
+		{
+			"name": "Routes",
+			"item": [
+				{
+					"name": "Get All Routes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/routes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"routes"
+							]
+						},
+						"description": "Lấy danh sách tất cả tuyến đường"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Route by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/routes/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"routes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "ROUTE_ID_HERE",
+									"description": "ID của tuyến đường"
+								}
+							]
+						},
+						"description": "Lấy thông tin tuyến đường theo ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Route",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"routeName\": \"Tuyến 1\",\n  \"startPoint\": \"Trường THPT ABC\",\n  \"endPoint\": \"Khu vực A\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/routes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"routes"
+							]
+						},
+						"description": "Tạo tuyến đường mới"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Route",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"routeName\": \"Tuyến 1 - Cập nhật\",\n  \"startPoint\": \"Trường THPT ABC\",\n  \"endPoint\": \"Khu vực B\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/routes/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"routes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "ROUTE_ID_HERE",
+									"description": "ID của tuyến đường"
+								}
+							]
+						},
+						"description": "Cập nhật thông tin tuyến đường"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Route",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/routes/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"routes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "ROUTE_ID_HERE",
+									"description": "ID của tuyến đường"
+								}
+							]
+						},
+						"description": "Xóa tuyến đường"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Buses by Route",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/routes/:id/buses",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"routes",
+								":id",
+								"buses"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "ROUTE_ID_HERE",
+									"description": "ID của tuyến đường"
+								}
+							]
+						},
+						"description": "Lấy danh sách xe buýt theo tuyến đường"
+					},
+					"response": []
+				}
+			],
+			"description": "API endpoints cho quản lý tuyến đường"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:5000",
+			"type": "string"
+		}
+	]
+}

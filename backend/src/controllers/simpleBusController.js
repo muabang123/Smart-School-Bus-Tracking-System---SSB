@@ -1,29 +1,21 @@
-
-// Dữ liệu mẫu cho buses
+// Dữ liệu mẫu cho buses (in-memory)
 let buses = [
   { id: 1, busNumber: "BUS001", driverName: "Nguyễn Văn A", route: "Tuyến 1" },
   { id: 2, busNumber: "BUS002", driverName: "Trần Thị B", route: "Tuyến 2" }
 ];
 
-// GET /api/buses - Lấy tất cả xe buýt
-export const getAllBuses = (req, res) => {
-  res.json(buses);
-};
+export const getAllBuses = (req, res) => res.json(buses);
 
-// GET /api/buses/:id - Lấy xe buýt theo ID
 export const getBusById = (req, res) => {
   const bus = buses.find(b => b.id == req.params.id);
-  if (!bus) {
-    return res.status(404).json({ message: "Không tìm thấy xe buýt" });
-  }
+  if (!bus) return res.status(404).json({ message: "Không tìm thấy xe buýt" });
   res.json(bus);
 };
 
-// POST /api/buses - Tạo xe buýt mới
 export const createBus = (req, res) => {
   const { busNumber, driverName, route } = req.body;
   const newBus = {
-    id: buses.length + 1,
+    id: buses.length ? Math.max(...buses.map(b=>b.id))+1 : 1,
     busNumber,
     driverName,
     route
@@ -32,25 +24,17 @@ export const createBus = (req, res) => {
   res.status(201).json(newBus);
 };
 
-// PUT /api/buses/:id - Cập nhật xe buýt
 export const updateBus = (req, res) => {
   const busIndex = buses.findIndex(b => b.id == req.params.id);
-  if (busIndex === -1) {
-    return res.status(404).json({ message: "Không tìm thấy xe buýt" });
-  }
-  
+  if (busIndex === -1) return res.status(404).json({ message: "Không tìm thấy xe buýt" });
   const { busNumber, driverName, route } = req.body;
   buses[busIndex] = { ...buses[busIndex], busNumber, driverName, route };
   res.json(buses[busIndex]);
 };
 
-// DELETE /api/buses/:id - Xóa xe buýt
 export const deleteBus = (req, res) => {
   const busIndex = buses.findIndex(b => b.id == req.params.id);
-  if (busIndex === -1) {
-    return res.status(404).json({ message: "Không tìm thấy xe buýt" });
-  }
-  
+  if (busIndex === -1) return res.status(404).json({ message: "Không tìm thấy xe buýt" });
   const deletedBus = buses.splice(busIndex, 1)[0];
   res.json(deletedBus);
 };
