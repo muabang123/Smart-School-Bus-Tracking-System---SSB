@@ -1,0 +1,378 @@
+/* Container chính */
+.bus-manager-container {
+  width: 84%;
+  height: auto !important;
+  background: rgba(255, 255, 255, 0.85);
+  border: 2px solid #000;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.bus-manager-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 25px;
+}
+.bus-manager-header h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+/* Phần thân chính */
+.bus-manager-body {
+  padding: 0 25px;
+  flex-grow: 1;
+}
+
+/* Đường kẻ phân cách */
+.bus-manager-divider {
+  border: none;
+  height: 2px;
+  background-color: #000;
+  margin: 15px 0;
+}
+
+/* Info Card "Tổng số xe" */
+.bus-manager-info-card {
+  width: 200px;
+  border: 2px solid #000;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.bus-manager-info-card-header {
+  background-color: #3b82f6;
+  color: white;
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  border-bottom: 2px solid #000;
+}
+.bus-manager-info-card-content {
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  font-weight: bold;
+  color: red;
+  background-color: #dbeafe;
+  height: 70px;
+}
+
+/* Khu vực danh sách */
+.bus-manager-list-section {
+  height: 480px;
+  background-color: #e0f2fe;
+  border: 2px solid #000;
+  border-radius: 20px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+/* Thanh điều khiển (Title, Search, Sort) */
+.bus-manager-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.bus-manager-controls h2 {
+  margin: 0;
+  font-size: 20px;
+}
+.bus-manager-filters {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Ô tìm kiếm */
+.bus-manager-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #fff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+.bus-manager-search input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+}
+
+/* Dropdown sắp xếp */
+.bus-manager-sort {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Bảng dữ liệu */
+.bus-manager-table-container {
+  width: 100%;
+  max-height: 400px;
+    overflow-y: auto; 
+}
+.bus-manager-table-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.bus-manager-table-container th, 
+.bus-manager-table-container td {
+  border: 1px solid #000;
+  padding: 12px;
+  text-align: left;
+  background-color: #fff;
+}
+.bus-manager-table-container th {
+  background-color: #f3f4f6;
+}
+
+/* Trạng thái (Đang hoạt động / Không hoạt động) */
+.bus-manager-status-pill {
+  color: white;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  display: inline-block;
+}
+.bus-manager-status-pill--active {
+  background-color: #10b981; 
+}
+.bus-manager-status-pill--inactive {
+  background-color: #ef4444; 
+}
+
+/* Footer chứa các nút hành động */
+.bus-manager-footer-actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 25px;
+}
+
+/* --- THÊM CLASS MỚI Ở ĐÂY --- */
+.bus-manager-left-actions {
+  display: flex;
+  gap: 20px;
+}
+
+.bus-manager-btn {
+  padding: 12px 40px;
+  font-size: 16px;
+  color: #000;
+  border: 2px solid #000;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+.bus-manager-btn:hover {
+  transform: translateY(-2px);
+}
+.bus-manager-btn--add {
+  background-color: #86efac; 
+}
+.bus-manager-btn--edit {
+  background-color: #93c5fd; 
+}
+.bus-manager-btn--delete {
+  background-color: #f87171; 
+  color: white;
+}
+
+/* --- CSS BỔ SUNG CHO MODAL VÀ DÒNG ĐƯỢC CHỌN --- */
+
+/* Highlight dòng được chọn trong bảng */
+.bus-manager-row--selected td {
+  background-color: #93c5fd !important; /* Màu xanh nhạt của nút Sửa */
+  font-weight: bold;
+}
+
+/* Lớp nền mờ cho modal */
+.bus-manager-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Khung modal */
+.bus-manager-form-modal {
+  width: 90%;
+  max-width: 480px;
+  background-color: #fefce8; /* Nền vàng rất nhạt */
+  border-radius: 16px;
+  overflow: hidden;
+  border: 2px solid #000;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Header modal */
+.bus-manager-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #d9f99d; /* Nền xanh lá mạ */
+  padding: 12px 20px;
+  border-bottom: 2px solid #000;
+}
+
+.bus-manager-form-header h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+/* Nút đóng (X) */
+.bus-manager-form-close-btn {
+  background-color: #fff;
+  border: 2px solid #000;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.bus-manager-form-close-btn:hover {
+  transform: rotate(90deg);
+}
+
+/* Thân modal (form) */
+.bus-manager-form-body {
+  padding: 25px 30px;
+}
+
+.bus-manager-form-group {
+  margin-bottom: 20px;
+}
+
+.bus-manager-form-group label {
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.bus-manager-form-group input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #e2e8f0;
+  background-color: #f8fafc;
+  border-radius: 20px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.bus-manager-form-group input:disabled {
+  background-color: #e2e8f0;
+  cursor: not-allowed;
+}
+
+/* Đường kẻ ngang trong form */
+.bus-manager-form-divider {
+  border: none;
+  height: 1px;
+  background-color: #cbd5e1;
+  margin: 25px 0;
+}
+
+/* Chân modal (nút Thêm/Lưu) */
+.bus-manager-form-footer {
+  text-align: center;
+}
+
+.bus-manager-form-submit-btn {
+  background-color: #bbf7d0; /* Xanh lá nhạt */
+  color: #000;
+  border: 2px solid #000;
+  border-radius: 20px;
+  padding: 10px 40px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.bus-manager-form-submit-btn:hover {
+  transform: scale(1.05);
+}
+
+/* --- CSS BỔ SUNG CHO MODAL XÁC NHẬN VÀ THÀNH CÔNG --- */
+
+.bus-manager-confirmation-modal,
+.bus-manager-success-modal {
+  background: white;
+  padding: 30px 40px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  width: 90%;
+  max-width: 400px;
+}
+
+.bus-manager-confirmation-message,
+.bus-manager-success-message {
+  font-size: 18px;
+  margin: 0 0 25px 0;
+  line-height: 1.5;
+}
+
+.bus-manager-confirmation-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Nút trong modal */
+.bus-manager-modal-btn {
+  padding: 10px 25px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.bus-manager-modal-btn:hover {
+  opacity: 0.8;
+}
+
+.bus-manager-confirm-btn--yes {
+  background-color: #ef4444;
+  color: white;
+}
+
+.bus-manager-confirm-btn--no {
+  background-color: #e5e7eb; 
+  color: #374151;
+}
+
+.bus-manager-success-btn--ok {
+  background-color: #22c55e; 
+  color: white;
+}

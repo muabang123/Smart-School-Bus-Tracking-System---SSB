@@ -1,0 +1,345 @@
+/* General Layout & Common Styles (can be shared) */
+.main-content {
+  flex: 1;
+  background-color: #f9f9f9;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.account-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 15px;
+}
+
+.account-header h2 {
+  color: #005A9C;
+  font-size: 26px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.admin-status {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+
+.sub-header {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+  color: #555;
+}
+
+/* Navigation Buttons */
+.info-actions {
+  display: flex;
+  gap: 15px;
+  align-self: flex-start;
+}
+
+.info-btn {
+  text-decoration: none;
+  background-color: #E6F2FF;
+  border: 2px solid #005A9C;
+  color: #005A9C;
+  border-radius: 25px;
+  padding: 10px 25px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.info-btn:hover {
+  background-color: #cce4ff;
+  transform: translateY(-2px);
+}
+
+.info-btn.active {
+  background-color: #005A9C;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 90, 156, 0.2);
+}
+
+
+/* Driver Table Styling */
+.table-container {
+  flex-grow: 1;
+  background-color: #E6F2FF;
+  border: 2px solid black;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  max-height: 400px;
+}
+
+.table-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-container th,
+.table-container td {
+  padding: 15px;
+  text-align: left;
+  border-right: 1px solid black;
+}
+
+.table-container th:last-child,
+.table-container td:last-child {
+  border-right: none;
+}
+
+.table-container thead {
+    background-color: #E6F2FF;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.table-container th {
+  font-weight: bold;
+  font-size: 16px;
+  border-bottom: 2px solid black;
+}
+
+.table-container tbody tr {
+  cursor: pointer;
+  background-color: #fff;
+  transition: background-color 0.2s ease;
+}
+
+.table-container tbody tr:not(:last-child) td {
+    border-bottom: 1px solid #ccc;
+}
+
+.table-container tbody tr:hover {
+  background-color: #d4eaff;
+}
+
+.table-container tr.selected {
+  background-color: #a8d0f3 !important;
+  font-weight: bold;
+}
+
+
+/* Footer Action Buttons */
+.action-buttons-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 80px !important;
+}
+
+.left-actions {
+  display: flex;
+  gap: 15px;
+}
+
+.action-btn {
+  border-radius: 50px;
+  padding: 12px 45px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  border: 2px solid black;
+  background-color: #f0f0f0;
+  transition: all 0.2s ease-in-out;
+}
+
+.action-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.action-btn:disabled {
+  background-color: #d4d4d4;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.delete-btn {
+  background-color: #FF4136;
+  color: white;
+  border-color: #d9332a;
+}
+
+.delete-btn:hover:not(:disabled) {
+  background-color: #e02015;
+}
+
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #f0f0f0;
+  border: 2px solid black;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 550px;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.modal-title {
+  font-size: 24px;
+  font-weight: bold;
+  padding: 15px 25px;
+  margin: 0;
+  border-bottom: 2px solid black;
+}
+
+.modal-section {
+  padding: 25px;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.form-row:last-child {
+  margin-bottom: 0;
+}
+
+.form-row label {
+  font-size: 18px;
+  width: 150px;
+  flex-shrink: 0;
+}
+
+.form-row input {
+  flex-grow: 1;
+  border: 1px solid black;
+  height: 35px;
+  font-size: 16px;
+  padding: 0 12px;
+  border-radius: 5px;
+}
+
+.form-row input:disabled {
+    background-color: #e9ecef;
+    opacity: 1;
+}
+
+/* Specific to Add Driver Modal */
+.add-driver-footer {
+  padding: 20px 25px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.driver-action-btn {
+  background-color: red;
+  color: white;
+  border: 1px solid black;
+  border-radius: 20px;
+  padding: 10px 30px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.driver-action-btn:hover {
+  background-color: #d9332a;
+}
+
+
+/* Specific to Edit Modal */
+.edit-modal-footer {
+  padding: 15px 25px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  border-top: 2px solid black;
+}
+
+.modal-btn {
+  border: 2px solid;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 8px 20px;
+  cursor: pointer;
+}
+
+.save-changes-btn {
+  background-color: #007bff;
+  color: white;
+  border-color: #0056b3;
+}
+.save-changes-btn:hover {
+  background-color: #0056b3;
+}
+
+.cancel-btn {
+  background-color: #6c757d;
+  color: white;
+  border-color: #5a6268;
+}
+.cancel-btn:hover {
+  background-color: #5a6268;
+}
+
+
+/* Confirmation Modal */
+.confirmation-modal {
+  background-color: white;
+  border-radius: 10px;
+  padding: 25px 30px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.confirmation-message {
+  font-size: 18px;
+  margin-bottom: 25px;
+}
+
+.confirmation-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.confirm-btn-yes, .confirm-btn-no {
+    border: none;
+    color: white;
+}
+
+.confirm-btn-yes {
+  background-color: #28a745;
+}
+.confirm-btn-yes:hover {
+  background-color: #218838;
+}
+
+.confirm-btn-no {
+  background-color: #dc3545;
+}
+.confirm-btn-no:hover {
+  background-color: #c82333;
+}

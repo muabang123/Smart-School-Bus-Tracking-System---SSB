@@ -1,0 +1,658 @@
+.route-details-page {
+    background-color: #f0f2f5;
+    min-height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-family: Arial, sans-serif;
+    background-image: url('../../assets/sgu.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.2rem;
+    margin: 0 0 15px 0;
+    color: #333;
+}
+
+.route-info-section {
+    background-color: #D9F2CB; 
+    border-radius: 25px;
+    padding: 20px;
+}
+
+.info-grid p {
+    margin: 8px 0;
+    font-size: 1rem;
+}
+
+.student-list-section {
+    background-color: #CFF5FE; 
+    border-radius: 25px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; 
+}
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.student-count {
+    font-size: 1.1rem;
+    background-color: #fff;
+    padding: 5px 15px;
+    border-radius: 15px;
+}
+
+.student-count span {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.table-container {
+    height: 0;
+    overflow-y: auto;
+    overflow-x: auto;
+    flex-grow: 1;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 2px solid #a3e3f2; 
+}
+
+th {
+    font-size: 1rem;
+    font-weight: bold;
+    border-bottom: 2px solid #333;
+}
+
+td {
+    background-color: #fff;
+}
+
+
+tr td:first-child { border-top-left-radius: 10px; border-bottom-left-radius: 10px; }
+tr td:last-child { border-top-right-radius: 10px; border-bottom-right-radius: 10px; }
+
+
+
+.status-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 0.85rem;
+    text-align: center;
+    min-width: 80px;
+}
+
+.status-picked-up { background-color: #28a745; } 
+.status-absent { background-color: #dc3545; } 
+.status-dropped-off { background-color: #ffc107; color: #333; } 
+.status-pending { background-color: #fd7e14; } 
+
+
+
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.start-trip-btn,
+.report-incident-btn {
+    border: none;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.start-trip-btn:hover,
+.report-incident-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.start-trip-btn {
+    background-color: #28a745;
+}
+
+.report-incident-btn {
+    background-color: #dc3545;
+}
+.route-details-page {
+    background-color: #f0f2f5;
+    min-height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.loading-page, .error-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-size: 1.5rem;
+    color: #555;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.2rem;
+    margin: 0 0 15px 0;
+    color: #333;
+}
+
+/* --- Khu vực thông tin tuyến xe --- */
+.route-info-section {
+    background-color: #D9F2CB;
+    border-radius: 25px;
+    padding: 20px;
+}
+
+.info-grid p {
+    margin: 8px 0;
+    font-size: 1rem;
+}
+
+/* --- Khu vực danh sách học sinh --- */
+.student-list-section {
+    background-color: #CFF5FE; 
+    border-radius: 25px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; 
+}
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.student-count {
+    font-size: 1.1rem;
+    background-color: #fff;
+    padding: 5px 15px;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.student-count span {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.table-container {
+    overflow-x: auto; 
+    flex-grow: 1;
+    overflow-y: auto;
+    height: 0; 
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px; 
+    min-width: 600px; 
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+th {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+    border-bottom: 2px solid #5fbbe7; 
+    background-color: #e0f6fc;
+    position: sticky; 
+    top: 0;
+    z-index: 10;
+}
+
+td {
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1); 
+}
+
+tr td:first-child { border-top-left-radius: 10px; border-bottom-left-radius: 10px; }
+tr td:last-child { border-top-right-radius: 10px; border-bottom-right-radius: 10px; }
+
+
+/* --- Các trạng thái --- */
+.status-badge {
+    display: inline-flex; 
+    justify-content: center;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 20px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 0.85rem;
+    text-align: center;
+    min-width: 80px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.status-badge:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.status-picked-up { background-color: #28a745; }
+.status-absent { background-color: #dc3545; } 
+.status-dropped-off { background-color: #ffc107; color: #333; } 
+.status-pending { background-color: #fd7e14; } 
+
+
+/* --- Khu vực nút bấm dưới cùng --- */
+.action-buttons {
+    display: flex;
+    justify-content: space-around; 
+    align-items: center;
+    padding: 15px 0;
+    background-color: #fff; 
+    border-top: 1px solid #eee;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.05); 
+    border-radius: 25px; 
+}
+
+.start-trip-btn,
+.report-incident-btn {
+    border: none;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    min-width: 180px; 
+    text-transform: uppercase; 
+}
+
+.start-trip-btn:hover,
+.report-incident-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.start-trip-btn {
+    background-color: #28a745; 
+}
+
+.report-incident-btn {
+    background-color: #dc3545; 
+}
+
+/* ==================================== */
+/* MODAL STYLES                */
+/* ==================================== */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; 
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    color: #333;
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+}
+
+.modal-content p {
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 25px;
+}
+
+.status-modal .status-options {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.status-option-btn {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex: 1 1 calc(50% - 10px); 
+    max-width: 150px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.status-option-btn.selected {
+    transform: scale(1.05);
+    border: 2px solid #007bff; 
+    box-shadow: 0 3px 8px rgba(0, 123, 255, 0.3);
+}
+
+
+.modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.modal-confirm-btn, .modal-cancel-btn {
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-grow: 1; 
+    max-width: 150px;
+}
+
+.modal-confirm-btn {
+    background-color: #007bff; 
+    color: white;
+    border: none;
+}
+
+.modal-confirm-btn.primary { 
+    background-color: #28a745;
+}
+
+.modal-confirm-btn:hover:not(:disabled) {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.2);
+}
+
+.modal-confirm-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.modal-cancel-btn {
+    background-color: #f0f0f0;
+    color: #555;
+    border: 1px solid #ddd;
+}
+
+.modal-cancel-btn:hover {
+    background-color: #e0e0e0;
+}
+
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+    .action-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .start-trip-btn,
+    .report-incident-btn {
+        width: 100%;
+        max-width: 300px;
+    }
+    .modal-content {
+        padding: 20px;
+    }
+    .status-modal .status-options {
+        flex-direction: column; 
+        max-width: 250px;
+        margin: 0 auto 20px auto;
+    }
+    .status-option-btn {
+        width: 100%;
+        max-width: none;
+    }
+    .modal-confirm-btn, .modal-cancel-btn {
+        width: 100%;
+        max-width: none;
+    }
+    .modal-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+
+.report-modal-content {
+    background-color: #f0f2f5; 
+    padding: 0;
+    max-width: 500px;
+    text-align: left;
+    overflow: hidden; 
+}
+
+.report-modal-header {
+    background-color: #ff6b6b; 
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+}
+
+.report-modal-header h3 {
+    margin: 0;
+    font-size: 1.3rem;
+}
+
+.report-modal-body {
+    padding: 20px;
+}
+
+.report-form-group {
+    margin-bottom: 20px;
+}
+
+.report-form-group label {
+    display: block;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.report-modal-select,
+.report-modal-textarea {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 15px;
+    background-color: #e9ecef; 
+    font-size: 1rem;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+}
+
+.report-modal-textarea {
+    resize: vertical; 
+}
+
+.report-modal-actions {
+    display: flex;
+    justify-content: flex-end; 
+    gap: 15px;
+    padding: 0 20px 20px 20px;
+}
+
+.report-cancel-btn,
+.report-submit-btn {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.report-cancel-btn {
+    background-color: #dc3545; 
+    color: white;
+}
+
+.report-submit-btn {
+    background-color: #28a745; 
+    color: white;
+}
+
+.report-cancel-btn:hover,
+.report-submit-btn:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+/* Modal gửi thành công */
+.success-modal-content {
+    max-width: 380px;
+}
+
+.success-icon {
+    fill: #28a745; 
+    width: 60px;
+    height: 60px;
+    margin-bottom: 10px;
+}
+
+.success-modal-content h3 {
+    color: #28a745;
+}
+
+.modal-close-btn {
+    padding: 12px 40px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    margin-top: 15px;
+}
+
+.modal-close-btn:hover {
+    background-color: #0056b3;
+}
+
+
+.list-header {
+    gap: 15px; 
+}
+
+.bulk-actions {
+    display: flex;
+    gap: 10px;
+    margin-left: auto; 
+}
+
+.bulk-action-btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.bulk-action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.bulk-action-btn.picked-up {
+    background-color: #28a745;
+}
+
+.bulk-action-btn.dropped-off {
+    background-color: #ffc107; 
+    color: #333;
+}
+
+/* ==================================== */
+/* NÚT KẾT THÚC HÀNH TRÌNH            */
+/* ==================================== */
+
+.end-trip-btn {
+    border: none;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    min-width: 180px;
+    text-transform: uppercase;
+    background-color: #fd7e14;
+}
+
+.end-trip-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}

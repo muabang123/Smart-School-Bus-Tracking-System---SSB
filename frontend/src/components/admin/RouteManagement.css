@@ -1,0 +1,235 @@
+/* Container chính của component */
+.rt-mgnt-container {
+  width: 84%;
+  padding: 25px;
+  background: #f4f7fa;
+  border-radius: 25px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  border: 1px solid #ddd;
+}
+
+/* 1. Header */
+.rt-mgnt-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.rt-mgnt-header h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+}
+
+.rt-mgnt-admin-status {
+  font-size: 14px;
+  font-weight: bold;
+  color: #555;
+  background: #e0e0e0;
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+
+/* 2. Info Card Section */
+.rt-mgnt-info-section {
+  margin: 15px 0;
+}
+
+.rt-mgnt-divider {
+  border: 0;
+  height: 2px;
+  background-color: #000;
+  opacity: 0.8;
+  margin: 10px 0;
+}
+
+.rt-mgnt-info-card {
+  width: 220px;
+  padding: 10px;
+  background-color: #e0e8f0;
+  border: 2px solid #000;
+  border-radius: 20px;
+  text-align: center;
+  margin: 10px 0 10px 30px; /* Căn lề trái giống ảnh */
+}
+
+.rt-mgnt-info-card h4 {
+  margin: 0 0 10px 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.rt-mgnt-info-count-box {
+  background-color: #a9c5e6;
+  border: 2px solid #000;
+  border-radius: 10px;
+  padding: 20px 10px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #1a3a6e;
+}
+
+/* 3. Bảng và các nút điều khiển */
+.rt-mgnt-table-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.rt-mgnt-table-controls h2 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.rt-mgnt-search-filter {
+  display: flex;
+  gap: 10px;
+}
+
+.rt-mgnt-search-wrapper {
+  position: relative;
+}
+
+.rt-mgnt-search-wrapper input {
+  padding: 8px 15px 8px 35px; /* Chừa chỗ cho icon */
+  border-radius: 15px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.rt-mgnt-search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+  pointer-events: none; /* Cho phép click xuyên qua icon */
+}
+
+.rt-mgnt-filter-dropdown {
+  padding: 8px 12px;
+  border-radius: 15px;
+  border: 1px solid #ccc;
+  background-color: #f0f0f0;
+}
+
+/* 4. Table */
+.rt-mgnt-table-wrapper {
+    height: 425px;
+    max-height: 425px;
+    overflow-y: auto !important;
+  overflow: hidden; /* Cần thiết để bo góc cho table */
+  border: 2px solid #000;
+  border-radius: 15px;
+}
+
+.rt-mgnt-table {
+  width: 100%;
+  border-collapse: separate; /* Quan trọng: để các border-right hoạt động */
+  border-spacing: 0;
+  background-color: #e6f0fa;
+}
+
+.rt-mgnt-table th,
+.rt-mgnt-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-right: 2px solid #000;
+}
+
+.rt-mgnt-table th:last-child,
+.rt-mgnt-table td:last-child {
+  border-right: none;
+}
+
+.rt-mgnt-table thead {
+  background-color: #d0dbe8;
+}
+
+.rt-mgnt-table th {
+  font-weight: bold;
+  font-size: 16px;
+  border-bottom: 2px solid #000;
+}
+
+.rt-mgnt-table tbody td {
+  vertical-align: middle;
+  height: 50px; /* Tạo chiều cao cho hàng */
+  transition: background-color 0.1s ease;
+}
+
+/* Hàng trống (nếu có) */
+.rt-mgnt-empty-row td {
+  height: 50px;
+}
+
+/* Nút 'Xem' trong bảng */
+.rt-mgnt-btn-view {
+  padding: 5px 15px;
+  background-color: #dcdcdc;
+  border: 1px solid #999;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.rt-mgnt-btn-view:hover {
+  background-color: #c9c9c9;
+}
+
+
+/* 5. Các nút hành động chính ở Footer */
+.rt-mgnt-action-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  margin-top: 25px;
+  padding-right: 10px;
+}
+
+.rt-mgnt-btn {
+  padding: 12px 35px;
+  border: 2px solid #000;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transition: transform 0.1s ease;
+}
+
+.rt-mgnt-btn:active {
+  transform: translateY(1px);
+}
+
+.rt-mgnt-btn-add {
+  background-color: #90ee90;
+}
+
+.rt-mgnt-btn-edit {
+  background-color: #add8e6; 
+}
+
+.rt-mgnt-btn-delete {
+  background-color: #ff6347; 
+  color: white;
+}
+
+
+
+.rt-mgnt-table tbody tr.rt-mgnt-selected-row td {
+  background-color: #cce5ff;
+}
+
+.rt-mgnt-table tbody tr {
+  cursor: pointer; 
+}
+
+
+.rt-mgnt-table tbody tr:hover td {
+  background-color: #f0f5fa; 
+}

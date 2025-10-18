@@ -1,0 +1,84 @@
+.tracking-container {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  background-color: #f0f2f5;
+  overflow: hidden; /* Ngăn cuộn toàn trang */
+}
+
+.tracking-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 20px;
+}
+
+/* Khu vực bản đồ */
+.map-area {
+  flex-grow: 1;
+  background-size: cover;
+  background-position: center;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  position: relative;
+  border: 3px solid #fff;
+}
+
+/* Lớp thông tin phủ trên bản đồ */
+.status-overlay {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  padding: 12px 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.status-overlay p {
+  margin: 8px 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.bus-status .status-icon {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.bus-status .status-icon.active {
+  background-color: #2ecc71; /* Màu xanh lá */
+  border: 2px solid white;
+}
+
+.student-name .highlight {
+  font-weight: bold;
+  color: #c0392b; /* Màu đỏ */
+}
+
+/* Thanh thông tin dưới cùng */
+.info-bar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 15px;
+  border-radius: 12px;
+  font-size: 1rem;
+}
+
+.info-item {
+  text-align: center;
+}
+
+.info-item strong {
+  margin-right: 8px;
+}

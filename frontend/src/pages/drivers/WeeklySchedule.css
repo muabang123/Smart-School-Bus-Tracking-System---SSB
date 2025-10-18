@@ -1,0 +1,209 @@
+.weekly-schedule-container {
+    font-family: Arial, sans-serif;
+    width: 100%;
+    margin: 50px auto 2px;
+    border: 1px solid #b0e0e6;
+    border-radius: 20px;
+    overflow: hidden; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 140px);
+}
+
+.weekly-schedule-header {
+    background-color: #a7e9f4; 
+    color: #333;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    padding: 15px;
+}
+
+.weekly-schedule-body {
+    background-color: #fff;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    
+}
+
+.schedule-row {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #000000;
+    flex-grow: 1; 
+}
+
+.schedule-row:last-child {
+    border-bottom: none; 
+}
+
+.day-info {
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+}
+
+.day-name {
+    font-weight: bold;
+    font-size: 1rem;
+    color: #333;
+}
+
+.day-date {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+.schedule-details {
+    flex: 1; 
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+
+.schedule-details.work {
+    color: #0056b3; 
+}
+.schedule-details.off {
+    color: #888;
+}
+
+.schedule-action {
+    flex: 1; 
+    text-align: right;
+}
+
+.details-button {
+    background-color: #00c853; 
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none; 
+    transition: background-color 0.2s;
+}
+
+.details-button:hover {
+    background-color: #009624; 
+}
+
+/* ==================================== */
+/* MODAL CHI TIẾT LỊCH LÀM VIỆC        */
+/* ==================================== */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6); /* Nền mờ */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 15px;
+}
+
+.daily-schedule-modal {
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 450px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.modal-header {
+    background-color: #D9F2CB;
+    color: #333;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-align: center;
+    padding: 15px;
+}
+
+.modal-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: 60vh; 
+    overflow-y: auto;
+}
+
+.modal-route-item {
+    background-color: #FFD6D6; 
+    border-radius: 50px;
+    padding: 10px 10px 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: bold;
+    color: #333;
+}
+
+.modal-route-time {
+    font-size: 1.1rem;
+}
+
+.modal-route-name {
+    flex-grow: 1;
+    margin: 0 15px;
+    font-size: 1rem;
+}
+
+.modal-view-button {
+    background-color: #fff;
+    color: #333;
+    padding: 8px 25px;
+    border-radius: 50px;
+    border: 1px solid #ccc;
+    font-size: 0.95rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+}
+
+.modal-view-button:hover {
+    background-color: #f0f0f0;
+}
+
+.modal-footer {
+    padding: 20px;
+    text-align: center;
+}
+
+.modal-exit-button {
+    background-color: #ff4d4d;
+    color: white;
+    padding: 12px 50px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.modal-exit-button:hover {
+    background-color: #e60000;
+}

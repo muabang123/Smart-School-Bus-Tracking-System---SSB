@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  color: #4A55A2;
+  background-color: #FFFFFF;
+  overflow: hidden; /* Ngăn cuộn trang */
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  padding: 2rem;
+  box-sizing: border-box;
+  background-image: url('./assets/pic_bus_1.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  gap: 2rem;
+  overflow-x: hidden;
+}
+
+.main-title {
+  color: rgba(230, 186, 188, 1);
+  font-size: 3.5rem;
+  font-weight: 500;
+  text-align: center;
+  transform: translateX(275px);
+}
+
+.login-container {
+  background-color: rgba(155, 185, 249, 0.37);
+  border-radius: 30px;
+  padding: 3rem 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 705px;
+  height: 500px;
+  transform: translateX(275px);
+}
+
+.form-title {
+  color: #000000;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 2rem;
+}
+
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-group {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  padding-left: 1rem;
+  font-size: 1.1rem;
+  color: #000000;
+  font-weight: 500;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  border-radius: 50px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  background-color: #FFFFFF;
+}
+
+.input-group input:focus {
+  outline: 2px solid #000000;
+}
+
+.login-button {
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  border-radius: 50px;
+  background-color: rgba(150, 239, 249, 1);
+  color: #4A55A2;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 0.2s ease;
+}
+
+.login-button:hover {
+  background-color: #069074;
+  animation: bounce 0.4s ease;
+}
+
+@keyframes bounce {
+  0% { transform: translateY(0); }
+  30% { transform: translateY(-5px); }
+  60% { transform: translateY(0); }
+  100% { transform: translateY(-2px); }
+}
+
+.forgot-password-link {
+  color: #000000;
+  text-decoration: none;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+}
+
+
+@media (max-width: 900px) {
+  .main-title {
+    font-size: 2.5rem;
+    transform: translateX(0);
+  }
+  .login-container {
+    padding: 2.5rem;
+    height: auto;
+    transform: translateX(0);
+  }
+}
+

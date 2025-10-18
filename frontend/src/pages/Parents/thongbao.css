@@ -1,0 +1,143 @@
+/* Lớp phủ mờ phía sau popup */
+.notification-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* Màu đen mờ */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Đảm bảo nằm trên cùng */
+}
+
+/* Khung popup chính */
+.notification-popup {
+  background-color: #e1eaf5; /* Màu xanh nhạt của nền */
+  width: 90%;
+  max-width: 450px;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Tiêu đề "THÔNG BÁO" */
+.notification-title {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #333;
+  text-decoration: underline;
+  text-underline-offset: 8px;
+}
+
+/* Danh sách chứa các thông báo */
+.notification-list {
+  max-height: 60vh; /* Giới hạn chiều cao và cho phép cuộn */
+  overflow-y: auto;
+  padding-right: 10px; /* Tạo khoảng trống cho thanh cuộn */
+}
+
+/* Từng mục thông báo */
+.notification-item {
+  color: #212121;
+  padding: 15px 20px;
+  margin-bottom: 12px;
+  border-radius: 30px; /* Bo tròn mạnh */
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.notification-item:hover {
+  transform: scale(1.02);
+}
+
+/* Màu cho thông báo chưa đọc */
+.notification-item.unread {
+  background-color: #f8baba; /* Màu hồng nhạt */
+}
+
+/* Màu cho thông báo đã đọc */
+.notification-item.read {
+  background-color: #dcdcdc; /* Màu xám nhạt */
+}
+
+/* Hiệu ứng xuất hiện */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Tùy chỉnh thanh cuộn (tùy chọn) */
+.notification-list::-webkit-scrollbar {
+  width: 8px;
+}
+.notification-list::-webkit-scrollbar-thumb {
+  background-color: #a0a0a0;
+  border-radius: 10px;
+}
+.notification-list::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* --- CSS cho Chi tiết Thông báo (Thêm vào cuối file) --- */
+
+.notification-detail {
+   display: flex;
+  flex-direction: column;
+  animation: fadeIn 0.3s ease-out; /* Dùng lại animation cũ */
+}
+
+.detail-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.detail-content {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 25px;
+  text-align: justify;
+}
+
+.back-button {
+  background-color: #5a8dee;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.2s;
+  align-self: center; /* Căn nút ra giữa */
+}
+
+.back-button:hover {
+  background-color: #4a78d0;
+}
+
+.notification-item.unread:hover {
+   background-color: #f0a0a0; /* Màu hồng đậm hơn một chút */
+}
+
+/* Khi trỏ chuột vào thông báo ĐÃ ĐỌC */
+.notification-item.read:hover {
+   background-color: #c8c8c8; /* Màu xám đậm hơn một chút */
+}

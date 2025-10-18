@@ -1,0 +1,360 @@
+/* Container chính */
+.driver-manager-container {
+  width: 84%;
+  background: rgba(255, 255, 255, 0.85);
+  border: 2px solid #000;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.driver-manager-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 25px;
+}
+.driver-manager-header h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+/* Phần thân chính */
+.driver-manager-body {
+  padding: 0 25px;
+  flex-grow: 1;
+}
+
+/* Đường kẻ phân cách */
+.driver-manager-divider {
+  border: none;
+  height: 2px;
+  background-color: #000;
+  margin: 15px 0;
+}
+
+/* Info Card "Tổng số tài xế" */
+.driver-manager-info-card {
+  width: 200px;
+  border: 2px solid #000;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.driver-manager-info-card-header {
+  background-color: #3b82f6;
+  color: white;
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  border-bottom: 2px solid #000;
+}
+.driver-manager-info-card-content {
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  font-weight: bold;
+  color: red;
+  background-color: #dbeafe;
+  height: 70px;
+}
+
+/* Khu vực danh sách */
+.driver-manager-list-section {
+  height: 480px;
+  background-color: #e0f2fe;
+  border: 2px solid #000;
+  border-radius: 20px;
+  padding: 20px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Thanh điều khiển (Title, Search, Sort) */
+.driver-manager-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.driver-manager-controls h2 {
+  margin: 0;
+  font-size: 20px;
+}
+.driver-manager-filters {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Ô tìm kiếm */
+.driver-manager-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #fff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+.driver-manager-search input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+}
+
+/* Dropdown sắp xếp */
+.driver-manager-sort {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Bảng dữ liệu */
+.driver-manager-table-container {
+  width: 100%;
+  max-height: 450px;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+.driver-manager-table-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.driver-manager-table-container th, 
+.driver-manager-table-container td {
+  border: 1px solid #000;
+  padding: 12px;
+  text-align: left;
+  background-color: #fff;
+}
+.driver-manager-table-container th {
+  background-color: #f3f4f6;
+}
+
+/* Footer chứa các nút hành động */
+.driver-manager-footer-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 25px;
+}
+
+.driver-manager-left-actions {
+  display: flex;
+  gap: 20px; /* Khoảng cách giữa nút Thêm và Sửa */
+}
+
+.driver-manager-btn {
+  padding: 12px 40px;
+  font-size: 16px;
+  color: #000;
+  border: 2px solid #000;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+.driver-manager-btn:hover {
+  transform: translateY(-2px);
+}
+.driver-manager-btn--add {
+  background-color: #86efac; /* Xanh lá nhạt */
+}
+.driver-manager-btn--edit {
+  background-color: #93c5fd; /* Xanh da trời nhạt */
+}
+.driver-manager-btn--delete {
+  background-color: #ef4444; /* Đỏ */
+  color: white;
+}
+
+/* --- CSS BỔ SUNG CHO DROPDOWN, MODAL VÀ DÒNG ĐƯỢC CHỌN --- */
+
+.driver-manager-sort-select {
+  border: 1px solid #ccc;
+  background-color: #fff;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 14px;
+  outline: none;
+  cursor: pointer;
+}
+
+/* Highlight dòng được chọn trong bảng */
+.driver-manager-row--selected td {
+  background-color: #93c5fd !important; /* Màu xanh nhạt của nút Sửa */
+  font-weight: bold;
+}
+
+/* Lớp nền mờ cho modal */
+.driver-manager-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Khung modal form */
+.driver-manager-form-modal {
+  width: 90%;
+  max-width: 480px;
+  background-color: #fefce8;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 2px solid #000;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Header modal form */
+.driver-manager-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #d9f99d;
+  padding: 12px 20px;
+  border-bottom: 2px solid #000;
+}
+.driver-manager-form-header h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+/* Nút đóng (X) */
+.driver-manager-form-close-btn {
+  background-color: #fff;
+  border: 2px solid #000;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.driver-manager-form-close-btn:hover {
+  transform: rotate(90deg);
+}
+
+/* Thân modal (form) */
+.driver-manager-form-body {
+  padding: 25px 30px;
+}
+.driver-manager-form-group {
+  margin-bottom: 20px;
+}
+.driver-manager-form-group label {
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+.driver-manager-form-group input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #e2e8f0;
+  background-color: #f8fafc;
+  border-radius: 20px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+.driver-manager-form-group input:disabled {
+  background-color: #e2e8f0;
+  color: #64748b;
+  cursor: not-allowed;
+}
+
+/* Đường kẻ ngang trong form */
+.driver-manager-form-divider {
+  border: none;
+  height: 1px;
+  background-color: #cbd5e1;
+  margin: 25px 0;
+}
+
+/* Chân modal (nút Thêm/Lưu) */
+.driver-manager-form-footer {
+  text-align: center;
+}
+.driver-manager-form-submit-btn {
+  background-color: #bbf7d0;
+  color: #000;
+  border: 2px solid #000;
+  border-radius: 20px;
+  padding: 10px 40px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.driver-manager-form-submit-btn:hover {
+  transform: scale(1.05);
+}
+
+/* Modal xác nhận & thành công */
+.driver-manager-confirmation-modal,
+.driver-manager-success-modal {
+  background: white;
+  padding: 30px 40px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  width: 90%;
+  max-width: 400px;
+}
+.driver-manager-confirmation-message,
+.driver-manager-success-message {
+  font-size: 18px;
+  margin: 0 0 25px 0;
+  line-height: 1.5;
+}
+.driver-manager-confirmation-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Nút trong modal */
+.driver-manager-modal-btn {
+  padding: 10px 25px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.driver-manager-modal-btn:hover {
+  opacity: 0.8;
+}
+.driver-manager-confirm-btn--yes {
+  background-color: #ef4444;
+  color: white;
+}
+.driver-manager-confirm-btn--no {
+  background-color: #e5e7eb;
+  color: #374151;
+}
+.driver-manager-success-btn--ok {
+  background-color: #22c55e;
+  color: white;
+}

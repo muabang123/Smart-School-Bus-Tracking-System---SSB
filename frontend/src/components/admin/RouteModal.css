@@ -1,0 +1,92 @@
+/* Nền mờ phía sau modal */
+.rt-mgnt-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Nội dung của modal */
+.rt-mgnt-modal-content {
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh; /* Giới hạn chiều cao */
+  overflow-y: auto;   /* Cho phép cuộn nếu nội dung quá dài */
+  background-color: white;
+  padding: 25px 35px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  z-index: 1001;
+}
+
+.rt-mgnt-modal-content h2 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+/* Nhóm các trường trong form */
+.rt-mgnt-form-group {
+  margin-bottom: 20px;
+}
+
+.rt-mgnt-form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #555;
+}
+
+.rt-mgnt-form-group input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box; /* Quan trọng */
+  font-size: 16px;
+}
+
+/* Các nút hành động trong modal */
+.rt-mgnt-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.rt-mgnt-btn-cancel,
+.rt-mgnt-btn-save {
+  padding: 10px 25px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.rt-mgnt-btn-cancel {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  color: #333;
+}
+
+.rt-mgnt-btn-cancel:hover {
+  background-color: #e0e0e0;
+}
+
+.rt-mgnt-btn-save {
+  background-color: #007bff;
+  color: white;
+}
+
+.rt-mgnt-btn-save:hover {
+  background-color: #0056b3;
+}
