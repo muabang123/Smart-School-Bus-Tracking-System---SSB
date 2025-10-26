@@ -1,0 +1,90 @@
+/* --- Container chính với ảnh nền --- */
+.dashboard-background {
+  /* Đường dẫn đến file ảnh nền trong thư mục assets(hình ảnh) */
+  background-image: url('../../assets/sgu.png'); 
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Khu vực nội dung chính --- */
+.dashboard-content {
+  flex-grow: 1;
+  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.left-panels {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* --- Style chung cho các Panel --- */
+.info-panel, .action-panel {
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 20px 25px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.info-panel {
+  width: 380px;
+}
+
+.info-panel-title {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #c0392b;
+}
+
+.info-panel p {
+  margin: 12px 0;
+  font-size: 1rem;
+}
+
+/* --- Panel Thao tác (chứa các nút) --- */
+.action-panel {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+}
+
+.button-container {
+  display: flex;
+  gap: 20px;
+}
+
+/* --- Các nút bấm --- */
+.action-button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 14px 35px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.action-button:hover {
+  background-color: #2980b9;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.action-button:active {
+  transform: translateY(0);
+}

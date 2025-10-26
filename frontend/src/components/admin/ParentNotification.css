@@ -1,0 +1,286 @@
+/* Container chính của component */
+.ph-notify-container {
+  background-color: #ffffff;
+  width: 84%;
+  /* margin: 20px auto; */
+  padding: 30px 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+}
+
+/* Phần header chứa tiêu đề */
+.ph-notify-header {
+  margin-bottom: 25px;
+}
+
+.ph-notify-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #0052cc;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  display: inline-block;
+}
+
+/* Đường gạch chân màu xanh dưới tiêu đề */
+.ph-notify-header h1::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: #0052cc;
+  border-radius: 2px;
+}
+
+/* Phần thân chính */
+.ph-notify-main {
+  width: 100%;
+}
+
+/* Nút "Gửi thông báo" màu vàng */
+.ph-notify-action-button {
+  background-color: #ffde59;
+  color: #000;
+  border: 2px solid #000;
+  border-radius: 25px;
+  padding: 12px 28px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ph-notify-action-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Khu vực lịch sử */
+.ph-notify-history {
+  margin-top: 40px;
+}
+
+.ph-notify-history-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.ph-notify-history-controls h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.ph-notify-filters {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Thanh tìm kiếm */
+.ph-notify-search-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #f5f5f5;
+  padding: 8px 15px;
+  border-radius: 8px;
+  width: 250px;
+}
+
+.ph-notify-search-bar input {
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+  font-size: 15px;
+}
+
+/* Bộ lọc "Short by" */
+.ph-notify-sort-by {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  color: #555;
+  cursor: pointer;
+}
+
+/* Danh sách thông báo */
+.ph-notify-list {
+  max-height: 550px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+/* Dòng header của danh sách */
+.ph-notify-list-header {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1fr 1fr 100px; /* Chia cột theo tỉ lệ */
+  gap: 20px;
+  padding: 10px 20px;
+  font-size: 14px;
+  color: #888;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* Mỗi item trong danh sách */
+.ph-notify-list-item {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1fr 1fr 100px;
+  gap: 20px;
+  align-items: center;
+  padding: 18px 20px;
+  border-bottom: 1px solid #e9e9e9;
+  font-size: 15px;
+  transition: background-color 0.2s ease;
+}
+
+.ph-notify-list-item:hover {
+  background-color: #f9f9f9;
+}
+
+.ph-notify-item-title {
+  font-weight: 500;
+}
+
+/* Nút "Xem" */
+.ph-notify-view-button {
+  background-color: #e9ecef;
+  color: #495057;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  padding: 6px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.ph-notify-view-button:hover {
+  background-color: #dee2e6;
+}
+
+.ph-notify-sort-by {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  color: #555;
+}
+
+.ph-notify-sort-select {
+  border: 1px solid #ddd;
+  background-color: #f5f5f5;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 15px;
+  color: #333;
+  outline: none;
+  cursor: pointer;
+  -webkit-appearance: none; 
+  -moz-appearance: none; 
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 9L12 15L18 9' stroke='%23555' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 35px; 
+}
+
+.ph-notify-sort-select:hover {
+    border-color: #bbb;
+}
+
+/* ---MODAL GỬI THÔNG BÁO --- */
+
+/* Khung modal */
+.ph-notify-send-modal {
+  width: 90%;
+  max-width: 550px;
+  background-color: #fffbeb;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  border: 2px solid #333;
+}
+
+/* Phần thân form */
+.ph-notify-send-body {
+  padding: 20px 30px 30px 30px;
+}
+
+.ph-notify-send-form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.ph-notify-send-form-group label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+/* Định dạng chung cho input, select, textarea */
+.ph-notify-send-body input[type="text"],
+.ph-notify-send-body select,
+.ph-notify-send-body textarea {
+  background-color: #fdf5d7;
+  border: 1px solid #eaddb0;
+  border-radius: 12px;
+  padding: 12px 15px;
+  font-size: 16px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.ph-notify-send-body input[type="text"]:focus,
+.ph-notify-send-body select:focus,
+.ph-notify-send-body textarea:focus {
+  border-color: #ffc107;
+}
+
+.ph-notify-send-body select {
+  cursor: pointer;
+}
+
+.ph-notify-send-body textarea {
+  resize: vertical; /* Cho phép thay đổi chiều cao */
+}
+
+/* Phần chân modal chứa nút Gửi */
+.ph-notify-send-footer {
+  text-align: center;
+  margin-top: 10px;
+  padding-top: 20px;
+  border-top: 1px solid #eaddb0;
+}
+
+.ph-notify-send-submit-btn {
+  background-color: #ffde59;
+  color: #000;
+  border: 2px solid #000;
+  border-radius: 20px;
+  padding: 10px 40px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ph-notify-send-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
