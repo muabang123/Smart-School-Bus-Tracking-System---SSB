@@ -6,6 +6,7 @@ import routeRoutes from "./src/routes/routeRoutes.js";
 import simpleBusRoutes from "./src/routes/simpleBusRoutes.js";
 import simpleStudentRoutes from "./src/routes/simpleStudentRoutes.js";
 import simpleRouteRoutes from "./src/routes/simpleRouteRoutes.js";
+import scheduleRoutes from "./src/routes/scheduleRoutes.js";
 
 const app = express();
 app.use(cors());
@@ -22,6 +23,8 @@ app.use("/api/routes", routeRoutes);
 app.use("/api/simple-buses", simpleBusRoutes);
 app.use("/api/simple-students", simpleStudentRoutes);
 app.use("/api/simple-routes", simpleRouteRoutes);
+app.use("/api/schedules", scheduleRoutes);
+
 
 const PORT = 5000;
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
