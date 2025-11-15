@@ -3,11 +3,7 @@ import ReactDOM from 'react-dom';
 import './BusManagement.css';
 
 // Dữ liệu mẫu ban đầu
-const initialBuses = [
-   { licensePlate: '51A-123.45', route: 'Tuyến 01', seats: 45, speed: 50 },
-   { licensePlate: '51B-678.90', route: 'Tuyến 02', seats: 29, speed: 45 },
-   { licensePlate: '51C-555.55', route: 'Tuyến 03', seats: 45, speed: 55 }
-];
+const initialBuses = [];
 
 // --- COMPONENT MODAL XÁC NHẬN ---
 const ConfirmationModal = ({ message, onConfirm, onCancel }) => {
@@ -131,6 +127,19 @@ const BusManagement = () => {
    const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
    const [showSuccessModal, setShowSuccessModal] = useState(false);
    const [modalMessage, setModalMessage] = useState('');
+
+   useEffect(() => {
+     const fetchVehicles = async () => {
+       try {
+         const res = await fetch('http://localhost:5000/api/sql/vehicles')
+         const rows = await res.json()
+         setBuses(Array.isArray(rows) ? rows : [])
+       } catch (e) {
+         setBuses([])
+       }
+     }
+     fetchVehicles()
+   }, [])
 
    const handleSearchChange = (e) => setSearchQuery(e.target.value);
    const handleSearchByChange = (e) => setSearchBy(e.target.value);

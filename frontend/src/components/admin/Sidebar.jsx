@@ -5,6 +5,7 @@ import './Sidebar.css';
 function Sidebar() {
   const menuItems = [
     { name: 'Trang tổng quan', path: '/dashboard' },
+    { name: 'Thông tin admin', path: '/dashboard/admin-info' },
     { name: 'Quản lý tài khoản', path: '/dashboard/accounts' }, 
     { name: 'Quản lý lịch trình', path: '/dashboard/schedules' },
     { name: 'Quản lý tuyến đường', path: '/dashboard/routes' },

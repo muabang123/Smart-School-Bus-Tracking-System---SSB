@@ -3,21 +3,7 @@ import ReactDOM from 'react-dom';
 import './DriverManager.css';
 
 // Dữ liệu mẫu ban đầu
-const initialDrivers = [
-  { id: 'TX001', name: 'Nguyễn Văn A', phone: '0901234567', license: 'B2' },
-  { id: 'TX002', name: 'Trần Thị B', phone: '0987654321', license: 'C' },
-  { id: 'TX003', name: 'Lê Văn C', phone: '0912345678', license: 'B2' },
-  { id: 'TX003', name: 'Lê Văn C', phone: '0912345678', license: 'B2' },
-  { id: 'TX003', name: 'Lê Văn C', phone: '0912345678', license: 'B2' },
-  { id: 'TX003', name: 'Lê Văn C', phone: '0912345678', license: 'B2' },
-  { id: 'TX003', name: 'Lê Văn C', phone: '0912345678', license: 'B2' },
-  { id: 'TX003', name: 'Lê Văn C', phone: '0912345678', license: 'B2' },
-  { id: 'TX003', name: 'Lê Văn C', phone: '0912345678', license: 'B2' },
-  { id: 'TX003', name: 'Lê Văn C', phone: '0912345678', license: 'B2' },
-  { id: 'TX003', name: 'Lê Văn C', phone: '0912345678', license: 'B2' },
-  { id: 'TX003', name: 'Lê Văn C', phone: '0912345678', license: 'B2' },
-  { id: 'TX003', name: 'Lê Văn C', phone: '0912345678', license: 'B2' },
-];
+const initialDrivers = [];
 
 // --- MODAL XÁC NHẬN --- (Không thay đổi)
 const ConfirmationModal = ({ message, onConfirm, onCancel }) => {
@@ -136,6 +122,19 @@ const DriverManager = () => {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
+
+  useEffect(() => {
+    const fetchDrivers = async () => {
+      try {
+        const res = await fetch('http://localhost:5000/api/sql/accounts/drivers')
+        const rows = await res.json()
+        setDrivers(Array.isArray(rows) ? rows : [])
+      } catch (e) {
+        setDrivers([])
+      }
+    }
+    fetchDrivers()
+  }, [])
 
   const handleSearchChange = (e) => setSearchQuery(e.target.value);
   const handleSearchByChange = (e) => setSearchBy(e.target.value);

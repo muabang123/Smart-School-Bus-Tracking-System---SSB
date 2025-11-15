@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './DriverDashboard.css';
 import Header from '../../components/drivers/Header';
 import { Link } from 'react-router-dom';
@@ -17,14 +17,29 @@ const ScheduleIcon = () => (
 
 
 function DriverDashboard() {
+    const [todayScheduleData, setTodayScheduleData] = useState([])
+    const driverId = localStorage.getItem('driverId') || 'TX001'
 
-     const todayScheduleData = [
-        { id: 'tuyen-001', time: '6:00 AM', routeName: 'Tuyến số 5 - Quận 1' },
-        { id: 'tuyen-002', time: '11:30 AM', routeName: 'Tuyến số 2 - Bình Thạnh' },
-        { id: 'tuyen-003', time: '13:00 PM', routeName: 'Tuyến số 2 - Bình Thạnh (về)' },
-        { id: 'tuyen-004', time: '17:30 AM', routeName: 'Tuyến số 5 - Quận 1 (về)' },
-        { id: 'tuyen-005', time: '18:30 AM', routeName: 'Tuyến đặc biệt - Gò Vấp' },
-    ];
+    useEffect(() => {
+        const fetchToday = async () => {
+            try {
+                const res = await fetch(`http://localhost:5000/api/sql/schedules/routes/by-driver?driverId=${driverId}`)
+                const rows = await res.json()
+                setTodayScheduleData(
+                    Array.isArray(rows)
+                        ? rows.map(r => ({
+                            id: r.id,
+                            time: r.name?.includes('Sáng') ? '07:00' : r.name?.includes('Chiều') ? '13:00' : '08:00',
+                            routeName: r.name
+                        }))
+                        : []
+                )
+            } catch (e) {
+                setTodayScheduleData([])
+            }
+        }
+        fetchToday()
+    }, [driverId])
 
     return (
         <div className="driver-dashboard-body">

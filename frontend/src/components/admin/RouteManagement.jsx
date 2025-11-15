@@ -1,50 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // import { Link } from "react-router-dom"; // 1. Bỏ import 'Link'
 import "./RouteManagement.css";
 import RouteModal from "./RouteModal";
 import ConfirmDeleteModal from "./ConfirmDeleteModal";
 import RouteViewModal from "./RouteViewModal"; // 2. Thêm import cho modal mới
 
-const initialRoutes = [
-   {
-     id: "T001",
-     name: "Tuyến số 1",
-     bus: "51F-123.45",
-     driver: "Nguyễn Văn A",
-     stops: [
-        { lat: 10.77, lng: 106.7 },
-        { lat: 10.78, lng: 106.71 },
-     ],
-   }, 
-   {
-     id: "T002",
-     name: "Tuyến KTX",
-     bus: "51F-678.90",
-     driver: "Trần Thị B",
-     stops: [{ lat: 10.77, lng: 106.7 }],
-   }, 
-   {
-     id: "T003",
-     name: "Tuyến Nội Đô",
-     bus: "51F-555.55",
-     driver: "Lê Văn C",
-     stops: [],
-   },
-   {
-     id: "T004",
-     name: "Tuyến 150",
-     bus: "51F-999.00",
-     driver: "Lê Văn C",
-     stops: [],
-   },
-   {
-     id: "T005",
-     name: "Tuyến Bến Thành",
-     bus: "51F-111.22",
-     driver: "Nguyễn Thị D",
-     stops: [],
-   },
-];
+const initialRoutes = [];
 
 function RouteManagement() {
    const [routes, setRoutes] = useState(initialRoutes);
@@ -59,6 +20,19 @@ function RouteManagement() {
   // 3. State mới để quản lý modal xem chi tiết
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [viewingRoute, setViewingRoute] = useState(null);
+
+  useEffect(() => {
+    const fetchRoutes = async () => {
+      try {
+        const res = await fetch('http://localhost:5000/api/sql/routes/details')
+        const rows = await res.json()
+        setRoutes(Array.isArray(rows) ? rows : [])
+      } catch (e) {
+        setRoutes([])
+      }
+    }
+    fetchRoutes()
+  }, [])
 
    const filteredRoutes = routes.filter((route) => {
      if (filterKey === "stops") {

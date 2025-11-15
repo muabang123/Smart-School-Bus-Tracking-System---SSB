@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import './AccountDriverManager.css';
 
@@ -125,11 +125,7 @@ function AccountDriversManager() {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-  const [driversData, setDriversData] = useState([
-    { id: 'TX001', name: 'Nguyễn Văn A', phone: '0901234567', license: 'A1, B2' },
-    { id: 'TX002', name: 'Trần Thị B', phone: '0987654321', license: 'B2' },
-    { id: 'TX003', name: 'Lê Văn C', phone: '0912345678', license: 'C' }
-  ]);
+  const [driversData, setDriversData] = useState([]);
   const [selectedDriverId, setSelectedDriverId] = useState(null);
 
   const handleAddDriver = (newDriverData) => {
@@ -149,6 +145,19 @@ function AccountDriversManager() {
   };
 
   const selectedDriver = driversData.find(d => d.id === selectedDriverId);
+
+  useEffect(() => {
+    const fetchDrivers = async () => {
+      try {
+        const res = await fetch('http://localhost:5000/api/sql/accounts/drivers')
+        const rows = await res.json()
+        setDriversData(Array.isArray(rows) ? rows : [])
+      } catch (e) {
+        setDriversData([])
+      }
+    }
+    fetchDrivers()
+  }, [])
 
   return (
     <div className="main-content">

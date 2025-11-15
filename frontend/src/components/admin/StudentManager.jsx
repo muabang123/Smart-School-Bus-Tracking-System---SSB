@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './StudentManager.css'; 
 import searchIcon from '../../assets/search-icon.png';
 
@@ -280,23 +280,24 @@ function StudentManager() {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
     
-    const [studentsData, setStudentsData] = useState([
-    { 
-        id: 'HS001', name: 'Nguyễn Văn An', class: 'Lớp 6A', 
-        parent: { name: 'Nguyễn Văn B', phone: '0901234567' },
-        route: 'Tuyến 1', pickupPoint: 'Chung cư A', licensePlate: '51G-123.45', status: 'Đã đón' 
-    },
-    { 
-        id: 'HS002', name: 'Trần Thị Bình', class: 'Lớp 7A', 
-        parent: { name: 'Trần Văn C', phone: '0987654321' },
-        route: 'Tuyến 2', pickupPoint: 'Siêu thị X', licensePlate: '51G-567.89', status: 'Chưa đón' 
-    }
-]);
+    const [studentsData, setStudentsData] = useState([]);
     const [selectedStudentId, setSelectedStudentId] = useState(null);
 
     const [searchTerm, setSearchTerm] = useState('');
     const [searchBy, setSearchBy] = useState('name');
     
+    useEffect(() => {
+        const fetchStudents = async () => {
+            try {
+                const res = await fetch('http://localhost:5000/api/sql/students')
+                const rows = await res.json()
+                setStudentsData(Array.isArray(rows) ? rows : [])
+            } catch (e) {
+                setStudentsData([])
+            }
+        }
+        fetchStudents()
+    }, [])
 
     const handleAddStudent = (newStudent) => {
         // Optional: Check for duplicate IDs before adding

@@ -7,6 +7,10 @@ import simpleBusRoutes from "./src/routes/simpleBusRoutes.js";
 import simpleStudentRoutes from "./src/routes/simpleStudentRoutes.js";
 import simpleRouteRoutes from "./src/routes/simpleRouteRoutes.js";
 import scheduleRoutes from "./src/routes/scheduleRoutes.js";
+import sqlScheduleRoutes from "./src/routes/sqlScheduleRoutes.js";
+import sqlAccountRoutes from "./src/routes/sqlAccountRoutes.js";
+import sqlDashboardRoutes from "./src/routes/sqlDashboardRoutes.js";
+import sqlEntityRoutes from "./src/routes/sqlEntityRoutes.js";
 
 const app = express();
 app.use(cors());
@@ -24,6 +28,10 @@ app.use("/api/simple-buses", simpleBusRoutes);
 app.use("/api/simple-students", simpleStudentRoutes);
 app.use("/api/simple-routes", simpleRouteRoutes);
 app.use("/api/schedules", scheduleRoutes);
+app.use("/api/sql/schedules", sqlScheduleRoutes);
+app.use("/api/sql/accounts", sqlAccountRoutes);
+app.use("/api/sql/dashboard", sqlDashboardRoutes);
+app.use("/api/sql", sqlEntityRoutes);
 
 
 const PORT = 5000;

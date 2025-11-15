@@ -137,25 +137,7 @@ function AddAccountModal({ closeModal, onAddParent }) {
 function AccountManager() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [parentsData, setParentsData] = useState([
-  { 
-    id: 'PH001', 
-    name: 'Nguyễn Văn A', 
-    phone: '0901234567', 
-    children: [
-      { id: 'HS01', name: 'Nguyễn Thị B' },
-      { id: 'HS02', name: 'Nguyễn Văn C' }
-    ] 
-  },
-  { 
-    id: 'PH002', 
-    name: 'Trần Thị D', 
-    phone: '0987654321', 
-    children: [
-      { id: 'HS03', name: 'Trần Văn E' }
-    ] 
-  }
-]);
+  const [parentsData, setParentsData] = useState([]);
   const [selectedParentId, setSelectedParentId] = useState(null);
   const [showParentDeleteConfirm, setShowParentDeleteConfirm] = useState(false);
 
@@ -177,6 +159,19 @@ function AccountManager() {
   };
 
   const selectedParent = parentsData.find(p => p.id === selectedParentId);
+
+  useEffect(() => {
+    const fetchParents = async () => {
+      try {
+        const res = await fetch('http://localhost:5000/api/sql/accounts/parents')
+        const rows = await res.json()
+        setParentsData(Array.isArray(rows) ? rows.map(r => ({ ...r, children: [] })) : [])
+      } catch (e) {
+        setParentsData([])
+      }
+    }
+    fetchParents()
+  }, [])
 
   return (
     <div className="main-content">

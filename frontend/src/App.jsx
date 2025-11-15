@@ -37,6 +37,7 @@ import BusManagement from "./pages/admin/BusManagement";
 import DriverManager from "./pages/admin/DriverManager";
 
 import RouteManagement from "./pages/admin/RouteManagement";
+import AdminInfoPage from "./pages/admin/AdminInfo";
 
 
 function LoginPage() {
@@ -79,6 +80,7 @@ function App() {
       <Route path="/" element={<LoginPage />} />
 
       <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/dashboard/admin-info" element={<AdminInfoPage />} />
 
       <Route
         path="/dashboard/accounts"

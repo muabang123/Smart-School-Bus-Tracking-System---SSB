@@ -9,79 +9,7 @@ const statusMap = {
   4: { text: 'Đã hủy', color: '#dc3545' },
 };
 
-const initialSchedules = [
-    {
-    id: 'LT001',
-    ngayThucHien: '2025-10-26',
-    gioBatDau: '07:30',
-    trangThai: 1,
-    tuyen: 'TP.HCM - Vũng Tàu',
-    taiXe: 'Nguyễn Văn A',
-    bienSoXe: '51A-123.45',
-  },
-  {
-    id: 'LT002',
-    ngayThucHien: '2025-10-26',
-    gioBatDau: '09:00',
-    trangThai: 3,
-    tuyen: 'TP.HCM - Đà Lạt',
-    taiXe: 'Trần Thị B',
-    bienSoXe: '51B-678.90',
-  },
-  {
-    id: 'LT003',
-    ngayThucHien: '2025-10-27',
-    gioBatDau: '14:00',
-    trangThai: 2,
-    tuyen: 'TP.HCM - Cần Thơ',
-    taiXe: 'Lê Văn C',
-    bienSoXe: '51C-555.55',
-  },
-  {
-    id: 'LT004',
-    ngayThucHien: '2025-10-28',
-    gioBatDau: '08:15',
-    trangThai: 4,
-    tuyen: 'TP.HCM - Nha Trang',
-    taiXe: 'Phạm Thị D',
-    bienSoXe: '51D-444.44',
-  },
-  {
-    id: 'LT005',
-    ngayThucHien: '2025-10-29',
-    gioBatDau: '10:30',
-    trangThai: 1,
-    tuyen: 'TP.HCM - Phan Thiết',
-    taiXe: 'Võ Văn E',
-    bienSoXe: '51E-333.33',
-  },
-  {
-    id: 'LT006',
-    ngayThucHien: '2025-10-30',
-    gioBatDau: '13:00',
-    trangThai: 2,
-    tuyen: 'TP.HCM - Long Hải',
-    taiXe: 'Đặng Thị F',
-    bienSoXe: '51F-222.22',
-  },
-  {
-    id: 'LT007',
-    ngayThucHien: '2025-10-31',
-    gioBatDau: '15:45',
-    trangThai: 3,
-    tuyen: 'TP.HCM - Vũng Tàu',
-    taiXe: 'Trương Văn G',
-  },
-  {
-    id: 'LT008',
-    ngayThucHien: '2025-11-01',
-    gioBatDau: '07:00',
-    trangThai: 4,
-    tuyen: 'TP.HCM - Đà Lạt',
-    taiXe: 'Ngô Thị H',
-    bienSoXe: '51H-111.11',
-  },
-];
+const initialSchedules = [];
 
 const ScheduleFormModal = ({ schedule, onSave, onClose }) => {
   const [formData, setFormData] = useState({});
@@ -194,6 +122,24 @@ const ScheduleManagement = () => {
   const [editingSchedule, setEditingSchedule] = useState(null);
 
   const selectedSchedule = schedules.find(s => s.id === selectedScheduleId);
+
+  useEffect(() => {
+    const fetchAllRoutes = async () => {
+      try {
+        const res = await fetch('http://localhost:5000/api/sql/schedules/routes')
+        const rows = await res.json()
+        setSchedules(Array.isArray(rows) ? rows.map(r => ({
+          id: r.code,
+          ngayThucHien: new Date().toLocaleDateString('vi-VN'),
+          gioBatDau: r.name?.includes('Sáng') ? '07:00' : r.name?.includes('Chiều') ? '13:00' : '08:00',
+          trangThai: 1
+        })) : [])
+      } catch (e) {
+        setSchedules([])
+      }
+    }
+    fetchAllRoutes()
+  }, [])
 
   const handleOpenAddModal = () => {
     setEditingSchedule(null);

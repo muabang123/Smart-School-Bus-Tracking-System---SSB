@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../../components/drivers/Header';
 import './WeeklySchedule.css';
@@ -38,32 +38,38 @@ function DailyScheduleModal({ dayData, onClose }) {
 
 // --- COMPONENT CHÍNH ---
 function WeeklySchedule() {
-    // State để quản lý modal
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedDay, setSelectedDay] = useState(null);
+    const [scheduleData, setScheduleData] = useState([]);
+    const driverId = localStorage.getItem('driverId') || 'TX001'
 
-    // Dữ liệu mẫu đã được cập nhật để chứa thông tin cho modal
+    const weekdayVN = ['Chủ Nhật','Thứ Hai','Thứ Ba','Thứ Tư','Thứ Năm','Thứ Sáu','Thứ Bảy']
 
-    const scheduleData = [
-        {
-            dayName: "Thứ Hai",
-            date: "17/10/2025",
-            status: "work",
-            details: "4 tuyến",
-            routes: [ // Dữ liệu chi tiết cho modal
-                { time: '6:00 AM', routeName: 'Tuyến số 5', routeId: 'tuyen-005' },
-                { time: '11:30 AM', routeName: 'Tuyến số 2', routeId: 'tuyen-002' },
-                { time: '13:00 PM', routeName: 'Tuyến số 2 (về)', routeId: 'tuyen-002-ve' },
-                { time: '17:30 AM', routeName: 'Tuyến số 5 (về)', routeId: 'tuyen-005-ve' }
-            ]
-        },
-        { dayName: "Thứ Ba", date: "18/10/2025", status: "off", details: "Nghỉ", routes: [] },
-        { dayName: "Thứ Tư", date: "19/10/2025", status: "empty", details: "", routes: [] },
-        { dayName: "Thứ Năm", date: "20/10/2025", status: "empty", details: "", routes: [] },
-        { dayName: "Thứ Sáu", date: "21/10/2025", status: "empty", details: "", routes: [] },
-        { dayName: "Thứ Bảy", date: "22/10/2025", status: "empty", details: "", routes: [] },
-        { dayName: "Chủ Nhật", date: "23/10/2025", status: "empty", details: "", routes: [] }
-    ];
+    useEffect(() => {
+        const fetchRoutes = async () => {
+            try {
+                const res = await fetch(`http://localhost:5000/api/sql/schedules/routes/by-driver?driverId=${driverId}`)
+                const rows = await res.json()
+                const today = new Date()
+                const generated = Array.from({ length: 7 }, (_, i) => {
+                    const d = new Date(today)
+                    d.setDate(today.getDate() + i)
+                    const dateStr = d.toLocaleDateString('vi-VN')
+                    const dayName = weekdayVN[d.getDay()]
+                    const routes = (Array.isArray(rows) ? rows : []).map(r => ({
+                        time: r.name?.includes('Sáng') ? '07:00' : r.name?.includes('Chiều') ? '13:00' : '08:00',
+                        routeName: r.name,
+                        routeId: r.id
+                    }))
+                    return { dayName, date: dateStr, status: routes.length ? 'work' : 'empty', details: routes.length ? `${routes.length} tuyến` : '', routes }
+                })
+                setScheduleData(generated)
+            } catch (e) {
+                setScheduleData([])
+            }
+        }
+        fetchRoutes()
+    }, [driverId])
 
     // Hàm để mở modal
     const handleOpenModal = (day) => {
