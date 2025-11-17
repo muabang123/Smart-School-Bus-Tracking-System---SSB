@@ -11,6 +11,9 @@ import sqlScheduleRoutes from "./src/routes/sqlScheduleRoutes.js";
 import sqlAccountRoutes from "./src/routes/sqlAccountRoutes.js";
 import sqlDashboardRoutes from "./src/routes/sqlDashboardRoutes.js";
 import sqlEntityRoutes from "./src/routes/sqlEntityRoutes.js";
+import sqlUsersRoutes from "./src/routes/sqlUsersRoutes.js";
+import sqlAdminSchedulesRoutes from "./src/routes/sqlAdminSchedulesRoutes.js";
+import sqlAuthRoutes from "./src/routes/sqlAuthRoutes.js";
 
 const app = express();
 app.use(cors());
@@ -32,6 +35,9 @@ app.use("/api/sql/schedules", sqlScheduleRoutes);
 app.use("/api/sql/accounts", sqlAccountRoutes);
 app.use("/api/sql/dashboard", sqlDashboardRoutes);
 app.use("/api/sql", sqlEntityRoutes);
+app.use("/api/sql/users", sqlUsersRoutes);
+app.use("/api/sql/admin/schedules", sqlAdminSchedulesRoutes);
+app.use("/api/sql/auth", sqlAuthRoutes);
 
 
 const PORT = 5000;

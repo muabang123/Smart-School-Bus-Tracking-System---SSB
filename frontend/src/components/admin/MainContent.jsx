@@ -9,70 +9,29 @@ const SearchIcon = () => (
 );
 
 function MainContent() {
-    const [summary, setSummary] = useState({ vehicles: 0, routes: 0, students: 0, drivers: 0, parents: 0 });
-    const [allUsersData, setAllUsersData] = useState([]);
-
-    // --- State cho bộ lọc và dữ liệu đã lọc ---
-    const [filteredUsers, setFilteredUsers] = useState([]);
-    const [roleFilter, setRoleFilter] = useState('All');
-    const [statusFilter, setStatusFilter] = useState(undefined);
-    const [searchQuery, setSearchQuery] = useState('');
-
-    // State cho phân trang
-    const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(5);
-
-    // useEffect để áp dụng bộ lọc và tìm kiếm
-    useEffect(() => {
-        let result = allUsersData;
-
-        if (roleFilter !== 'All') {
-            result = result.filter(user => user.role === roleFilter);
-        }
-        if (searchQuery.trim() !== '') {
-            const lowercasedQuery = searchQuery.toLowerCase();
-            result = result.filter(user =>
-                user.name.toLowerCase().includes(lowercasedQuery) ||
-                user.phone.toLowerCase().includes(lowercasedQuery)
-            );
-        }
-
-        setFilteredUsers(result);
-        setCurrentPage(1);
-    }, [roleFilter, searchQuery]);
+    const [summary, setSummary] = useState({ vehicles: 0, drivers: 0, students: 0, schedulesToday: 0 });
+    const [todaySchedules, setTodaySchedules] = useState([]);
 
     useEffect(() => {
         const fetchSummary = async () => {
             try {
                 const res = await fetch('http://localhost:5000/api/sql/dashboard/summary')
                 const s = await res.json()
-                setSummary(s)
+                setSummary({ vehicles: s.vehicles || 0, drivers: s.drivers || 0, students: s.students || 0, schedulesToday: s.schedulesToday || 0 })
             } catch {}
         }
-        const fetchUsers = async () => {
+        const fetchToday = async () => {
             try {
-                const res = await fetch('http://localhost:5000/api/sql/dashboard/users')
-                const u = await res.json()
-                setAllUsersData(Array.isArray(u) ? u : [])
-                setFilteredUsers(Array.isArray(u) ? u : [])
+                const res = await fetch('http://localhost:5000/api/sql/dashboard/today-schedules')
+                const rows = await res.json()
+                setTodaySchedules(Array.isArray(rows) ? rows : [])
             } catch {
-                setAllUsersData([])
-                setFilteredUsers([])
+                setTodaySchedules([])
             }
         }
         fetchSummary()
-        fetchUsers()
+        fetchToday()
     }, [])
-    
-    // Logic tính toán cho phân trang
-    const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentUsers = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
-
-    const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
-
-    const activeMembersCount = undefined;
 
     return (
         <div className="main-content-container">
@@ -81,87 +40,39 @@ function MainContent() {
             </div>
             
             <div className="dashboard-grid">
-                <div className="dashboard-card"><span className="card-title">Tổng số xe</span><span className="card-value">{summary.vehicles}</span></div>
-                <div className="dashboard-card"><span className="card-title">Số tuyến đường</span><span className="card-value">{summary.routes}</span></div>
-                <div className="dashboard-card"><span className="card-title">Số học sinh</span><span className="card-value">{summary.students}</span></div>
-                <div className="dashboard-card"><span className="card-title">Số tài xế</span><span className="card-value">{summary.drivers}</span></div>
-                <div className="dashboard-card"><span className="card-title">Phụ Huynh</span><span className="card-value">{summary.parents}</span></div>
+                <div className="dashboard-card"><span className="card-title">Tổng số xe bus</span><span className="card-value">{summary.vehicles}</span></div>
+                <div className="dashboard-card"><span className="card-title">Tổng số tài xế</span><span className="card-value">{summary.drivers}</span></div>
+                <div className="dashboard-card"><span className="card-title">Tổng số học sinh</span><span className="card-value">{summary.students}</span></div>
+                <div className="dashboard-card"><span className="card-title">Lịch trình hôm nay</span><span className="card-value">{summary.schedulesToday}</span></div>
             </div>
 
             <div className="user-list-container">
                 <header className="user-list-header">
                     <div className="list-title">
-                        <h3>Tất cả người dùng</h3>
-                        
-                    </div>
-                    <div className="filter-controls">
-                        {/* Bọc select đầu tiên */}
-                        <div className="custom-select-wrapper">
-                          <select value={roleFilter} onChange={(e) => setRoleFilter(e.target.value)}>
-                              <option value="All">Tất cả vai trò</option>
-                              <option value="Admin">Admin</option>
-                              <option value="Tài xế">Tài xế</option>
-                              <option value="Phụ huynh">Phụ huynh</option>
-                          </select>
-                        </div>
-    
-                          
-                      </div>
-                    <div className="list-controls">
-                        <div className="search-bar">
-                            <SearchIcon />
-                            <input 
-                                type="search" 
-                                placeholder="Search"
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                            />
-                        </div>
+                        <h3>Lịch trình hôm nay</h3>
                     </div>
                 </header>
-
                 <div className="user-table">
-                    <div className="user-table-header">
-                        <span>Tên người dùng</span>
-                        <span>Vai trò</span>
-                        <span>Số điện thoại</span>
-                        
+                    <div className="user-table-header" style={{gridTemplateColumns: '1.2fr 1fr 1fr 1fr 1fr'}}>
+                        <span>Tên xe</span>
+                        <span>Tài xế</span>
+                        <span>Giờ bắt đầu</span>
+                        <span>Học sinh trên tuyến</span>
+                        <span>Giờ đến trường (dự kiến)</span>
                     </div>
-                    
-                    {currentUsers.map((user, index) => (
-                        <div key={index} className="user-row">
-                            <span>{user.name}</span>
-                            <span>{user.role}</span>
-                            <span>{user.phone}</span>
-                            
+                    {todaySchedules.map((item, index) => (
+                        <div key={index} className="user-row" style={{gridTemplateColumns: '1.2fr 1fr 1fr 1fr 1fr'}}>
+                            <span>{item.licensePlate}</span>
+                            <span>{item.driverName}</span>
+                            <span>{item.startTime}</span>
+                            <span>{item.studentCount}</span>
+                            <span>{item.eta}</span>
                         </div>
                     ))}
-                    {currentUsers.length === 0 && (
-                        <div className="empty-row-message">Không tìm thấy người dùng nào.</div>
+                    {todaySchedules.length === 0 && (
+                        <div className="empty-row-message">Không có lịch trình nào hôm nay.</div>
                     )}
                 </div>
-
-                <footer className="list-footer">
-                    <span className="user-count-info">Hiển thị {indexOfFirstItem + 1}-{Math.min(indexOfLastItem, filteredUsers.length)} / {filteredUsers.length} người dùng</span>
-                    
-                    <div className="pagination">
-                        <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
-                            &lt;
-                        </button>
-                        {Array.from({ length: totalPages }, (_, i) => i + 1).map(number => (
-                            <button 
-                                key={number} 
-                                onClick={() => handlePageChange(number)}
-                                className={currentPage === number ? 'active' : ''}
-                            >
-                                {number}
-                            </button>
-                        ))}
-                        <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
-                            &gt;
-                        </button>
-                    </div>
-                </footer>
             </div>
         </div>
     );

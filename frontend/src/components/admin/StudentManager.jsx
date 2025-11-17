@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import './StudentManager.css'; 
 import searchIcon from '../../assets/search-icon.png';
 
@@ -81,7 +82,7 @@ function AddStudentModal({ closeModal, onAddStudent }) {
 
     const availablePickupPoints = formData.route ? routeData[formData.route].pickupPoints : [];
 
-    return (
+    return ReactDOM.createPortal(
         <div className="modal-overlay" onClick={closeModal}>
             <div className="modal-content add-student-modal" onClick={(e) => e.stopPropagation()}>
                 <h2 className="modal-title">THÊM HỌC SINH</h2>
@@ -149,7 +150,8 @@ function AddStudentModal({ closeModal, onAddStudent }) {
                     <button className="modal-btn cancel-btn" onClick={closeModal}>Hủy</button>
                 </div>
             </div>
-        </div>
+        </div>,
+        document.getElementById('modal-root')
     );
 }
 
@@ -194,7 +196,7 @@ function EditStudentModal({ closeModal, onSave, studentData }) {
 
     const availablePickupPoints = formData.route ? routeData[formData.route].pickupPoints : [];
 
-    return (
+    return ReactDOM.createPortal(
         <div className="modal-overlay" onClick={closeModal}>
             <div className="modal-content edit-student-modal" onClick={(e) => e.stopPropagation()}>
                 <h2 className="modal-title">CHỈNH SỬA HỌC SINH</h2>
@@ -269,7 +271,8 @@ function EditStudentModal({ closeModal, onSave, studentData }) {
                     <button className="modal-btn cancel-btn" onClick={closeModal}>Hủy</button>
                 </div>
             </div>
-        </div>
+        </div>,
+        document.getElementById('modal-root')
     );
 }
 

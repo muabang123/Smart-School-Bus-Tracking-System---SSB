@@ -6,16 +6,24 @@ export const getTodayByDriver = async (req, res) => {
     if (!driverId) return res.status(400).json({ message: 'Thiếu driverId' })
 
     const [rows] = await sqlPool.query(
-      `SELECT s.id AS scheduleId,
-              DATE(s.date) AS date,
-              s.start_time AS startTime,
-              s.status AS status,
-              s.route_id AS routeId,
-              r.name AS routeName
+      `SELECT s.Id AS scheduleId,
+              DATE(s.Date) AS date,
+              s.StartTime AS startTime,
+              s.EndTime AS endTime,
+              s.Status AS status,
+              s.Notes AS notes,
+              s.RouteId AS routeId,
+              s.DriverId AS driverId,
+              s.VehicleId AS vehicleId,
+              r.Name AS routeName,
+              v.LicensePlate AS licensePlate,
+              (SELECT COUNT(*) FROM schedule_assignments sa WHERE sa.ScheduleId = s.Id) AS studentCount,
+              (SELECT GROUP_CONCAT(p.PointName SEPARATOR ', ') FROM pickuppoints p WHERE p.RouteId = s.RouteId) AS pickupPoints
        FROM schedules s
-       JOIN routes r ON r.id = s.route_id
-       WHERE s.driver_id = ? AND DATE(s.date) = CURDATE()
-       ORDER BY s.start_time ASC`,
+       LEFT JOIN routes r ON r.Id = s.RouteId
+       LEFT JOIN vehicles v ON v.Id = s.VehicleId
+       WHERE s.DriverId = ? AND DATE(s.Date) = CURDATE()
+       ORDER BY s.StartTime ASC`,
       [driverId]
     )
     res.json(rows)
@@ -31,16 +39,24 @@ export const getUpcomingByDriver = async (req, res) => {
     const rangeDays = Number(days || 14)
 
     const [rows] = await sqlPool.query(
-      `SELECT s.id AS scheduleId,
-              DATE(s.date) AS date,
-              s.start_time AS startTime,
-              s.status AS status,
-              s.route_id AS routeId,
-              r.name AS routeName
+      `SELECT s.Id AS scheduleId,
+              DATE(s.Date) AS date,
+              s.StartTime AS startTime,
+              s.EndTime AS endTime,
+              s.Status AS status,
+              s.Notes AS notes,
+              s.RouteId AS routeId,
+              s.DriverId AS driverId,
+              s.VehicleId AS vehicleId,
+              r.Name AS routeName,
+              v.LicensePlate AS licensePlate,
+              (SELECT GROUP_CONCAT(p.PointName SEPARATOR ', ') FROM pickuppoints p WHERE p.RouteId = s.RouteId) AS pickupPoints,
+              s.CreatedBy AS createdBy
        FROM schedules s
-       JOIN routes r ON r.id = s.route_id
-       WHERE s.driver_id = ? AND DATE(s.date) > CURDATE() AND DATE(s.date) <= DATE_ADD(CURDATE(), INTERVAL ? DAY)
-       ORDER BY s.date ASC, s.start_time ASC`,
+       LEFT JOIN routes r ON r.Id = s.RouteId
+       LEFT JOIN vehicles v ON v.Id = s.VehicleId
+       WHERE s.DriverId = ? AND DATE(s.Date) > CURDATE() AND DATE(s.Date) <= DATE_ADD(CURDATE(), INTERVAL ? DAY)
+       ORDER BY s.Date ASC, s.StartTime ASC`,
       [driverId, rangeDays]
     )
     res.json(rows)

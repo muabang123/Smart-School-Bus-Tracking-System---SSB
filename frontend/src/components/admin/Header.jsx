@@ -67,7 +67,7 @@ function Header() {
   return (
     <header className="header">
       <div className="header-left">
-        <Link to="/dashboard" className="home-icon">
+        <Link to={(localStorage.getItem('authRole') === 'Driver') ? '/driver/dashboard' : (localStorage.getItem('authRole') === 'Parent') ? '/parents/dashboard' : (localStorage.getItem('authRole') === 'Student') ? '/student/dashboard' : '/dashboard'} className="home-icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
             <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
           </svg>

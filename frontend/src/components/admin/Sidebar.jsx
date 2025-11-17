@@ -3,28 +3,36 @@ import { NavLink } from 'react-router-dom';
 import './Sidebar.css';
 
 function Sidebar() {
-  const menuItems = [
-    { name: 'Trang tổng quan', path: '/dashboard' },
-    { name: 'Thông tin admin', path: '/dashboard/admin-info' },
-    { name: 'Quản lý tài khoản', path: '/dashboard/accounts' }, 
-    { name: 'Quản lý lịch trình', path: '/dashboard/schedules' },
-    { name: 'Quản lý tuyến đường', path: '/dashboard/routes' },
-    { name: 'Quản lý xe', path: '/dashboard/vehicles' },
-    { name: 'Quản lý tài xế', path: '/dashboard/drivers' },
-    { name: 'Quản lý học sinh', path: '/dashboard/students' },
-    { name: 'Thông báo', path: '/dashboard/notifications' },
-    { name: 'Gửi tin nhắn', path: '/dashboard/message' }
-  ];
+  const role = localStorage.getItem('authRole')
+  const menuItems = role === 'Driver'
+    ? [
+        { name: 'Trang tổng quan', path: '/driver/dashboard' },
+        { name: 'Lịch làm việc', path: '/driver/schedule' },
+        { name: 'Thông báo', path: '/driver/notifications' },
+        { name: 'Gửi tin nhắn', path: '/driver/messages' }
+      ]
+    : [
+        { name: 'Trang tổng quan', path: '/dashboard' },
+        { name: 'Thông tin admin', path: '/dashboard/admin-info' },
+        { name: 'Quản lý tài khoản', path: '/dashboard/accounts' }, 
+        { name: 'Quản lý lịch trình', path: '/dashboard/schedules' },
+        { name: 'Quản lý tuyến đường', path: '/dashboard/routes' },
+        { name: 'Quản lý xe', path: '/dashboard/vehicles' },
+        { name: 'Quản lý tài xế', path: '/dashboard/drivers' },
+        { name: 'Quản lý học sinh', path: '/dashboard/students' },
+        { name: 'Thông báo', path: '/dashboard/notifications' },
+        { name: 'Gửi tin nhắn', path: '/dashboard/message' }
+      ]
 
   return (
     <div className="sidebar">
       <div className="admin-info">
-        <h3>Thông tin quản lý</h3>
+        <h3>{role === 'Driver' ? 'Thông tin tài xế' : 'Thông tin quản lý'}</h3>
         <div className="info-item">
           <span className="label">Tên:</span>
         </div>
         <div className="info-item">
-          <span className="label">Mã QL:</span>
+          <span className="label">{role === 'Driver' ? 'Mã TX:' : 'Mã QL:'}</span>
         </div>
       </div>
 

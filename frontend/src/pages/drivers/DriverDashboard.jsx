@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './DriverDashboard.css';
-import Header from '../../components/drivers/Header';
+import Header from '../../components/admin/Header';
+import Sidebar from '../../components/admin/Sidebar';
+import '../admin/Dashboard.css';
 import { Link } from 'react-router-dom';
 
 const UserIcon = () => (
@@ -23,17 +25,9 @@ function DriverDashboard() {
     useEffect(() => {
         const fetchToday = async () => {
             try {
-                const res = await fetch(`http://localhost:5000/api/sql/schedules/routes/by-driver?driverId=${driverId}`)
+                const res = await fetch(`http://localhost:5000/api/sql/schedules/today?driverId=${driverId}`)
                 const rows = await res.json()
-                setTodayScheduleData(
-                    Array.isArray(rows)
-                        ? rows.map(r => ({
-                            id: r.id,
-                            time: r.name?.includes('Sáng') ? '07:00' : r.name?.includes('Chiều') ? '13:00' : '08:00',
-                            routeName: r.name
-                        }))
-                        : []
-                )
+                setTodayScheduleData(Array.isArray(rows) ? rows : [])
             } catch (e) {
                 setTodayScheduleData([])
             }
@@ -42,10 +36,11 @@ function DriverDashboard() {
     }, [driverId])
 
     return (
-        <div className="driver-dashboard-body">
-            <div className="main-container">
-                <Header />
-
+        <div className="app">
+            <Header />
+            <div className="app-body">
+                <Sidebar />
+                <div className="main-content-container">
                 <section className="account-info">
                     <div className="section-header">
                         <UserIcon />
@@ -67,10 +62,13 @@ function DriverDashboard() {
                     <div className="schedule-list">
                         {todayScheduleData.map((item, index) => (
                             <div key={index} className="schedule-item">
-                                <span className="schedule-time">{item.time}</span>
-                                <span className="schedule-details">Tên tuyến:</span>
+                                <span className="schedule-time">{item.startTime}</span>
+                                <span className="schedule-details">Tuyến: {item.routeName}</span>
+                                <span className="schedule-details">Xe: {item.licensePlate}</span>
+                                <span className="schedule-details">Học sinh: {item.studentCount}</span>
+                                <span className="schedule-details">Điểm dừng: {item.pickupPoints}</span>
                                 <Link 
-                                    to={`/driver/route/${item.id}`} 
+                                    to={`/driver/route/${item.routeId}`} 
                                     className="view-button"
                                 >
                                     Xem chi tiết
@@ -90,6 +88,7 @@ function DriverDashboard() {
                         Xem lịch
                     </Link>
                 </section>
+                </div>
             </div>
         </div>
     );

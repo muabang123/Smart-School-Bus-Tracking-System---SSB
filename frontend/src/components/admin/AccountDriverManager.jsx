@@ -127,6 +127,11 @@ function AccountDriversManager() {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [driversData, setDriversData] = useState([]);
   const [selectedDriverId, setSelectedDriverId] = useState(null);
+  const [isPwdModalOpen, setIsPwdModalOpen] = useState(false);
+  const [newPassword, setNewPassword] = useState('');
+  const [isCreateAccOpen, setIsCreateAccOpen] = useState(false);
+  const [createForm, setCreateForm] = useState({ fullName: '', phoneNumber: '', license: '', password: '' });
+  const [message, setMessage] = useState('');
 
   const handleAddDriver = (newDriverData) => {
     setDriversData(prevData => [...prevData, newDriverData]);
@@ -152,7 +157,7 @@ function AccountDriversManager() {
         const res = await fetch('http://localhost:5000/api/sql/accounts/drivers')
         const rows = await res.json()
         setDriversData(Array.isArray(rows) ? rows : [])
-      } catch (e) {
+      } catch {
         setDriversData([])
       }
     }
@@ -168,6 +173,75 @@ function AccountDriversManager() {
           onSave={handleEditDriver}
           driverData={selectedDriver}
         />
+      )}
+      {isPwdModalOpen && selectedDriver && (
+        <div className="modal-overlay" onClick={() => setIsPwdModalOpen(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h2 className="modal-title">Đặt mật khẩu tài xế</h2>
+            <div className="form-row">
+              <label>Tài xế</label>
+              <input value={`${selectedDriver.name} (${selectedDriver.id})`} disabled />
+            </div>
+            <div className="form-row">
+              <label>Mật khẩu mới</label>
+              <input type="password" value={newPassword} onChange={e => setNewPassword(e.target.value)} />
+            </div>
+            <div className="edit-modal-footer">
+              <button className="modal-btn save-changes-btn" onClick={async () => {
+                setMessage('')
+                try {
+                  const res = await fetch('http://localhost:5000/api/sql/auth/change-password', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ role: 'Driver', userId: selectedDriver.id, newPassword }) })
+                  if (!res.ok) { const j = await res.json(); setMessage(j.message || 'Thất bại'); return }
+                  setMessage('Đặt mật khẩu thành công')
+                  setIsPwdModalOpen(false)
+                  setNewPassword('')
+                } catch { setMessage('Không thể kết nối máy chủ') }
+              }}>Lưu</button>
+              <button className="modal-btn cancel-btn" onClick={() => setIsPwdModalOpen(false)}>Hủy</button>
+            </div>
+          </div>
+        </div>
+      )}
+      {isCreateAccOpen && (
+        <div className="modal-overlay" onClick={() => setIsCreateAccOpen(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h2 className="modal-title">Tạo tài khoản tài xế</h2>
+            <div className="form-row">
+              <label>Họ tên</label>
+              <input value={createForm.fullName} onChange={e => setCreateForm({ ...createForm, fullName: e.target.value })} />
+            </div>
+            <div className="form-row">
+              <label>Số điện thoại</label>
+              <input value={createForm.phoneNumber} onChange={e => setCreateForm({ ...createForm, phoneNumber: e.target.value })} />
+            </div>
+            <div className="form-row">
+              <label>Bằng lái</label>
+              <input value={createForm.license} onChange={e => setCreateForm({ ...createForm, license: e.target.value })} />
+            </div>
+            <div className="form-row">
+              <label>Mật khẩu</label>
+              <input type="password" value={createForm.password} onChange={e => setCreateForm({ ...createForm, password: e.target.value })} />
+            </div>
+            <div className="edit-modal-footer">
+              <button className="modal-btn save-changes-btn" onClick={async () => {
+                setMessage('')
+                try {
+                  const res = await fetch('http://localhost:5000/api/sql/auth/create-driver', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(createForm) })
+                  if (!res.ok) { const j = await res.json(); setMessage(j.message || 'Tạo thất bại'); return }
+                  const j = await res.json()
+                  setIsCreateAccOpen(false)
+                  setCreateForm({ fullName: '', phoneNumber: '', license: '', password: '' })
+                  const resList = await fetch('http://localhost:5000/api/sql/accounts/drivers')
+                  const rows = await resList.json()
+                  setDriversData(Array.isArray(rows) ? rows : [])
+                  setSelectedDriverId(j.id)
+                  setMessage('Tạo tài khoản tài xế thành công')
+                } catch { setMessage('Không thể kết nối máy chủ') }
+              }}>Tạo</button>
+              <button className="modal-btn cancel-btn" onClick={() => setIsCreateAccOpen(false)}>Hủy</button>
+            </div>
+          </div>
+        </div>
       )}
       {showDeleteConfirm && (
         <ConfirmationModal
@@ -243,7 +317,21 @@ function AccountDriversManager() {
         >
           Xóa
         </button>
+        <button 
+          className="action-btn" 
+          onClick={() => { if (selectedDriverId) setIsPwdModalOpen(true); }}
+          disabled={!selectedDriverId}
+        >
+          Đặt mật khẩu
+        </button>
+        <button 
+          className="action-btn" 
+          onClick={() => setIsCreateAccOpen(true)}
+        >
+          Tạo tài khoản tài xế
+        </button>
       </div>
+      {message && <div style={{ marginTop: 12 }}>{message}</div>}
     </div>
   );
 }

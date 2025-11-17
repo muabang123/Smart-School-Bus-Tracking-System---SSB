@@ -56,7 +56,7 @@ function NotificationBellModal({ isOpen, notifications, onClose }) {
             ) : (
                 <p className="no-notifications">Không có thông báo mới.</p>
             )}
-            <Link to="/dashboard/notifications" className="view-all-link" onClick={onClose}>
+            <Link to={(localStorage.getItem('authRole') === 'Driver') ? '/driver/notifications' : '/dashboard/notifications'} className="view-all-link" onClick={onClose}>
                 Xem tất cả thông báo
             </Link>
         </div>

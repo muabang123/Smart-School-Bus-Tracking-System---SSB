@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Header from '../../components/drivers/Header';
+import Header from '../../components/admin/Header';
+import Sidebar from '../../components/admin/Sidebar';
+import '../admin/Dashboard.css';
 import './WeeklySchedule.css';
 
 // Component này sẽ hiển thị chi tiết lịch làm của một ngày
@@ -43,33 +45,41 @@ function WeeklySchedule() {
     const [scheduleData, setScheduleData] = useState([]);
     const driverId = localStorage.getItem('driverId') || 'TX001'
 
-    const weekdayVN = ['Chủ Nhật','Thứ Hai','Thứ Ba','Thứ Tư','Thứ Năm','Thứ Sáu','Thứ Bảy']
+    const weekdayVN = React.useMemo(() => ['Chủ Nhật','Thứ Hai','Thứ Ba','Thứ Tư','Thứ Năm','Thứ Sáu','Thứ Bảy'], [])
 
     useEffect(() => {
-        const fetchRoutes = async () => {
+        const fetchUpcoming = async () => {
             try {
-                const res = await fetch(`http://localhost:5000/api/sql/schedules/routes/by-driver?driverId=${driverId}`)
+                const res = await fetch(`http://localhost:5000/api/sql/schedules/upcoming?driverId=${driverId}&days=14`)
                 const rows = await res.json()
-                const today = new Date()
-                const generated = Array.from({ length: 7 }, (_, i) => {
-                    const d = new Date(today)
-                    d.setDate(today.getDate() + i)
-                    const dateStr = d.toLocaleDateString('vi-VN')
+                // Group by date for weekly view
+                const byDate = {}
+                for (const r of Array.isArray(rows) ? rows : []) {
+                    const dateStr = r.date
+                    if (!byDate[dateStr]) byDate[dateStr] = []
+                    byDate[dateStr].push(r)
+                }
+                const dates = Object.keys(byDate).sort((a,b) => new Date(a) - new Date(b))
+                const generated = dates.map(dateStr => {
+                    const d = new Date(dateStr)
                     const dayName = weekdayVN[d.getDay()]
-                    const routes = (Array.isArray(rows) ? rows : []).map(r => ({
-                        time: r.name?.includes('Sáng') ? '07:00' : r.name?.includes('Chiều') ? '13:00' : '08:00',
-                        routeName: r.name,
-                        routeId: r.id
+                    const routes = byDate[dateStr].map(r => ({
+                        time: r.startTime,
+                        routeName: r.routeName,
+                        routeId: r.routeId,
+                        licensePlate: r.licensePlate,
+                        pickupPoints: r.pickupPoints,
+                        createdBy: r.createdBy
                     }))
-                    return { dayName, date: dateStr, status: routes.length ? 'work' : 'empty', details: routes.length ? `${routes.length} tuyến` : '', routes }
+                    return { dayName, date: dateStr, status: routes.length ? 'work' : 'empty', details: `${routes.length} tuyến`, routes }
                 })
                 setScheduleData(generated)
-            } catch (e) {
+            } catch {
                 setScheduleData([])
             }
         }
-        fetchRoutes()
-    }, [driverId])
+        fetchUpcoming()
+    }, [driverId, weekdayVN])
 
     // Hàm để mở modal
     const handleOpenModal = (day) => {
@@ -84,8 +94,12 @@ function WeeklySchedule() {
     };
 
     return (
-        <> {/* Dùng Fragment để chứa cả trang và modal */}
-            <Header />
+        <>
+            <div className="app">
+                <Header />
+                <div className="app-body">
+                    <Sidebar />
+                    <div className="main-content-container">
             <div className="weekly-schedule-container">
                 <header className="weekly-schedule-header">
                     Lịch làm việc tuần này (17/10/2025 - 24/10/2025)
@@ -110,6 +124,9 @@ function WeeklySchedule() {
                             </div>
                         </div>
                     ))}
+                </div>
+            </div>
+                    </div>
                 </div>
             </div>
 

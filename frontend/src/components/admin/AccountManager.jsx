@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
 import './AccountManager.css';
 
 // --- Component Modal Xác Nhận Xóa ---
@@ -135,118 +134,108 @@ function AddAccountModal({ closeModal, onAddParent }) {
 
 // --- Component Chính ---
 function AccountManager() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [parentsData, setParentsData] = useState([]);
-  const [selectedParentId, setSelectedParentId] = useState(null);
-  const [showParentDeleteConfirm, setShowParentDeleteConfirm] = useState(false);
-
-  const handleAddParent = (newParentData) => {
-    setParentsData(prevData => [...prevData, newParentData]);
-    setSelectedParentId(newParentData.id);
-  };
-  
-  const handleEditParent = (updatedParentData) => {
-    setParentsData(prevData => 
-      prevData.map(parent => parent.id === updatedParentData.id ? updatedParentData : parent)
-    );
-  };
-  
-  const handleDeleteParent = () => {
-    if (!selectedParentId) return;
-    setParentsData(prevData => prevData.filter(parent => parent.id !== selectedParentId));
-    setSelectedParentId(null);
-  };
-
-  const selectedParent = parentsData.find(p => p.id === selectedParentId);
+  const [users, setUsers] = useState([])
+  const [selectedUserId, setSelectedUserId] = useState(null)
+  const [isFormOpen, setIsFormOpen] = useState(false)
+  const [formData, setFormData] = useState({ fullName: '', email: '', phoneNumber: '', avatarUrl: '', role: 'Admin', status: 'Active' })
+  const selectedUser = users.find(u => u.id === selectedUserId)
 
   useEffect(() => {
-    const fetchParents = async () => {
+    const fetchUsers = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/sql/accounts/parents')
+        const res = await fetch('http://localhost:5000/api/sql/users')
         const rows = await res.json()
-        setParentsData(Array.isArray(rows) ? rows.map(r => ({ ...r, children: [] })) : [])
-      } catch (e) {
-        setParentsData([])
+        setUsers(Array.isArray(rows) ? rows : [])
+      } catch {
+        setUsers([])
       }
     }
-    fetchParents()
+    fetchUsers()
   }, [])
+
+  const openAdd = () => { setSelectedUserId(null); setFormData({ fullName: '', email: '', phoneNumber: '', avatarUrl: '', role: 'Admin', status: 'Active' }); setIsFormOpen(true) }
+  const openEdit = () => { if (!selectedUser) return; setFormData({ fullName: selectedUser.fullName, email: selectedUser.email, phoneNumber: selectedUser.phoneNumber, avatarUrl: selectedUser.avatarUrl, role: selectedUser.role, status: selectedUser.status }); setIsFormOpen(true) }
+
+  const saveUser = async () => {
+    try {
+      if (selectedUser) {
+        await fetch(`http://localhost:5000/api/sql/users/${selectedUser.id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData) })
+      } else {
+        await fetch('http://localhost:5000/api/sql/users', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData) })
+      }
+      const res = await fetch('http://localhost:5000/api/sql/users')
+      const rows = await res.json()
+      setUsers(Array.isArray(rows) ? rows : [])
+      setIsFormOpen(false)
+    } catch {}
+  }
+
+  const deleteUser = async () => {
+    if (!selectedUser) return
+    if (!window.confirm(`Xóa tài khoản ${selectedUser.fullName}?`)) return
+    try {
+      await fetch(`http://localhost:5000/api/sql/users/${selectedUser.id}`, { method: 'DELETE' })
+      setUsers(users.filter(u => u.id !== selectedUser.id))
+      setSelectedUserId(null)
+    } catch {}
+  }
+
+  const toggleStatus = async () => {
+    if (!selectedUser) return
+    const next = selectedUser.status === 'Active' ? 'Locked' : 'Active'
+    try {
+      await fetch(`http://localhost:5000/api/sql/users/${selectedUser.id}/status`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status: next }) })
+      setUsers(users.map(u => u.id === selectedUser.id ? { ...u, status: next } : u))
+    } catch {}
+  }
 
   return (
     <div className="main-content">
-      {isModalOpen && <AddAccountModal closeModal={() => setIsModalOpen(false)} onAddParent={handleAddParent} />}
-      {isEditModalOpen && selectedParent && (
-        <EditAccountModal
-          closeModal={() => setIsEditModalOpen(false)}
-          onSave={handleEditParent}
-          parentData={selectedParent}
-        />
-      )}
-      {showParentDeleteConfirm && (
-        <ConfirmationModal
-          message={`Bạn có chắc muốn xóa phụ huynh "${selectedParent?.name || selectedParentId}"?`}
-          onConfirm={() => { handleDeleteParent(); setShowParentDeleteConfirm(false); }}
-          onCancel={() => setShowParentDeleteConfirm(false)}
-        />
-      )}
-
       <div className="account-header"><h2>Quản lý tài khoản</h2><span className="admin-status">ADMIN ONLINE : 1</span></div>
-      
-      <div className="info-section">
-        <div className="info-cards-group">
-            <div className="info-card"><div className="info-card-header">Tài xế</div><div className="info-card-content"></div></div>
-            <div className="info-card"><div className="info-card-header">Phụ huynh</div><div className="info-card-content"></div></div>
-        </div>
-        <div className="info-actions">
-            <NavLink to="/dashboard/accounts/parents" className={({ isActive }) => isActive ? 'info-btn active' : 'info-btn'}>
-              Phụ Huynh
-            </NavLink>
-            <NavLink to="/dashboard/accounts/drivers" className={({ isActive }) => isActive ? 'info-btn active' : 'info-btn'}>
-              Tài Xế
-            </NavLink>
-        </div>
-      </div>
-
-      <h3 className="sub-header">Tài khoản / Phụ huynh</h3>
       <div className="tables-section">
         <div className="table-container parent-table">
           <table>
-            <thead><tr><th>Mã phụ huynh</th><th>Tên phụ huynh</th><th>Số điện thoại</th></tr></thead>
+            <thead><tr><th>Tên</th><th>Email</th><th>Vai trò</th><th>Trạng thái</th><th>SĐT</th><th>Ngày tạo</th></tr></thead>
             <tbody>
-              {parentsData.map(parent => (<tr key={parent.id} onClick={() => setSelectedParentId(parent.id)} className={selectedParentId === parent.id ? 'selected' : ''}><td>{parent.id}</td><td>{parent.name}</td><td>{parent.phone}</td></tr>))}
-            </tbody>
-          </table>
-        </div>
-        <div className="table-container children-table">
-          <table>
-            <thead><tr><th>Con cái</th></tr></thead>
-            <tbody>
-              {selectedParent && selectedParent.children.map(child => (<tr key={child.id}><td>{child.name}</td></tr>))}
+              {users.map(u => (
+                <tr key={u.id} onClick={() => setSelectedUserId(u.id)} className={selectedUserId === u.id ? 'selected' : ''}>
+                  <td>{u.fullName}</td>
+                  <td>{u.email}</td>
+                  <td>{u.role}</td>
+                  <td>{u.status}</td>
+                  <td>{u.phoneNumber}</td>
+                  <td>{u.createdAt?.slice(0,10)}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
       </div>
       <div className="action-buttons-footer">
         <div className="left-actions">
-          <button className="action-btn" onClick={() => setIsModalOpen(true)}>Thêm</button>
-          
-          <button 
-            className="action-btn" 
-            onClick={() => { if (selectedParentId) setIsEditModalOpen(true); }}
-            disabled={!selectedParentId}
-          >
-            Sửa
-          </button>
+          <button className="action-btn" onClick={openAdd}>Thêm</button>
+          <button className="action-btn edit-btn" onClick={openEdit} disabled={!selectedUserId}>Sửa</button>
         </div>
-        <button 
-          className="action-btn delete-btn" 
-          onClick={() => { if (selectedParentId) setShowParentDeleteConfirm(true); }}
-          disabled={!selectedParentId}
-        >
-          Xóa
-        </button>
+        <button className="action-btn delete-btn" onClick={deleteUser} disabled={!selectedUserId}>Xóa</button>
+        <button className="action-btn" onClick={toggleStatus} disabled={!selectedUserId}>Khóa/Mở khóa</button>
       </div>
+
+      {isFormOpen && (
+        <div className="modal-overlay" onClick={() => setIsFormOpen(false)}>
+          <div className="modal-content edit-modal" onClick={(e) => e.stopPropagation()}>
+            <h2 className="modal-title">{selectedUser ? 'SỬA TÀI KHOẢN' : 'THÊM TÀI KHOẢN'}</h2>
+            <div className="form-grid">
+              <div className="form-group"><label>Tên</label><input type="text" value={formData.fullName} onChange={e => setFormData({ ...formData, fullName: e.target.value })} /></div>
+              <div className="form-group"><label>Email</label><input type="email" value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} /></div>
+              <div className="form-group"><label>SĐT</label><input type="text" value={formData.phoneNumber} onChange={e => setFormData({ ...formData, phoneNumber: e.target.value })} /></div>
+              <div className="form-group"><label>Avatar URL</label><input type="text" value={formData.avatarUrl} onChange={e => setFormData({ ...formData, avatarUrl: e.target.value })} /></div>
+              <div className="form-group"><label>Vai trò</label><select value={formData.role} onChange={e => setFormData({ ...formData, role: e.target.value })}><option>Admin</option><option>Tài xế</option><option>Phụ huynh</option><option>Nhân viên hỗ trợ</option></select></div>
+              <div className="form-group"><label>Trạng thái</label><select value={formData.status} onChange={e => setFormData({ ...formData, status: e.target.value })}><option>Active</option><option>Locked</option></select></div>
+            </div>
+            <div className="edit-modal-footer"><button className="modal-btn cancel-btn" onClick={() => setIsFormOpen(false)}>Hủy</button><button className="modal-btn save-changes-btn" onClick={saveUser}>Lưu</button></div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
